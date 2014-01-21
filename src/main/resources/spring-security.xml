@@ -26,7 +26,7 @@
 	</http>
 	
 	<!-- 未登录的切入点 -->
-	<beans:bean id="restAuthenticationEntryPoint" class="cn.edu.bjut.help.core.auth.RestAuthenticationEntryPoint">
+	<beans:bean id="restAuthenticationEntryPoint" class="com.thirdblock.migo.core.auth.RestAuthenticationEntryPoint">
 		<beans:property name="defaultTargetUrl" value="/unauthorized" />
     </beans:bean>
     
@@ -34,15 +34,15 @@
     	<beans:property name="errorPage" value="/accessDenied" />
     </beans:bean>
     
-    <beans:bean id="authenticationSuccessHandler" class="cn.edu.bjut.help.core.auth.RestAuthenticationSuccessHandler">
+    <beans:bean id="authenticationSuccessHandler" class="com.thirdblock.migo.core.auth.RestAuthenticationSuccessHandler">
 	    <beans:property name="defaultTargetUrl" value="/authenticationSuccess" />
     </beans:bean>
     
-    <beans:bean id="authenticationFailureHandler" class="cn.edu.bjut.help.core.auth.RestAuthenticationFailureHandler">
+    <beans:bean id="authenticationFailureHandler" class="com.thirdblock.migo.core.auth.RestAuthenticationFailureHandler">
     	<beans:property name="defaultFailureUrl" value="/authenticationFailure" />
     </beans:bean>
     
- 	<beans:bean id="logoutSuccessHandler" class="cn.edu.bjut.help.core.auth.RestLogoutSuccessHandler">
+ 	<beans:bean id="logoutSuccessHandler" class="com.thirdblock.migo.core.auth.RestLogoutSuccessHandler">
  	    <beans:property name="defaultTargetUrl" value="/logoutSuccess" />
     </beans:bean>
     
@@ -56,7 +56,7 @@
 		<beans:property name="securityMetadataSource" ref="securityMetadataSource" />
 	</beans:bean>
 	
-	<beans:bean id="userDetailService" class="cn.edu.bjut.help.core.auth.UserDetailServiceImpl" />
+	<beans:bean id="userDetailService" class="com.thirdblock.migo.core.auth.UserDetailServiceImpl" />
 
 	<authentication-manager alias="authenticationManager">
 		<authentication-provider user-service-ref="userDetailService">
@@ -74,6 +74,6 @@
         </beans:property>
     </beans:bean>
     
-    <beans:bean id="securityMetadataSource" class="cn.edu.bjut.help.core.auth.SecurityMetadataSource" />
+    <beans:bean id="securityMetadataSource" class="com.thirdblock.migo.core.auth.SecurityMetadataSource" />
 
 </beans:beans>

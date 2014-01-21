@@ -5,7 +5,7 @@
 
 	<!--
 	<plugins>
-		<plugin interceptor="com.baidu.foo.ssh.core.mybatis.interceptor.PaginationInterceptor" />
+		<plugin interceptor="com.thirdblock.migo.core.mybatis.interceptor.PaginationInterceptor" />
 	</plugins>
 	-->
 	
