@@ -7,9 +7,9 @@ public class StatusInfo {
 	
 	public final static String SUCCESS_MSG = "success";
 	
-	private int status;
-	private String statusInfo;
-	private Object data;
+	private int status = SUCCESS;
+	private String statusInfo = "";
+	private Object data = "";
 
 	public int getStatus() {
 		return status;

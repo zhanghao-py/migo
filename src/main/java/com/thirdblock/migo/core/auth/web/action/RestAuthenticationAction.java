@@ -1,10 +1,5 @@
 package com.thirdblock.migo.core.auth.web.action;
 
-import java.util.HashMap;
-import java.util.Map;
-
-import javax.servlet.http.HttpServletResponse;
-
 import org.springframework.security.core.AuthenticationException;
 import org.springframework.security.web.WebAttributes;
 import org.springframework.stereotype.Controller;
@@ -13,6 +8,7 @@ import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.ResponseBody;
 
 import com.thirdblock.migo.core.web.action.BaseAction;
+import com.thirdblock.migo.core.web.action.dto.StatusInfo;
 
 @Controller  
 @RequestMapping("")
@@ -20,62 +16,55 @@ public class RestAuthenticationAction extends BaseAction {
 
 	@RequestMapping(value = "authenticationFailure", method = RequestMethod.POST) 
 	@ResponseBody
-    public Map<String, Object> authenticationFailure() {
+    public StatusInfo authenticationFailure() {
 		
 		AuthenticationException exception = (AuthenticationException) session.getAttribute(WebAttributes.AUTHENTICATION_EXCEPTION);
 		
-		Map<String, Object> jsonMap = new HashMap<String, Object>();
-		jsonMap.put("httpcode", HttpServletResponse.SC_BAD_REQUEST);
-		jsonMap.put("message", exception.getMessage());
+		status.setStatusInfo(exception.getMessage());
+		status.setStatus(StatusInfo.FAILED);
 		
-        return jsonMap;
+        return status;
     }
 	
 	@RequestMapping(value = "authenticationSuccess", method = RequestMethod.POST) 
 	@ResponseBody
-    public Map<String, Object> authenticationSuccess() {
+    public StatusInfo authenticationSuccess() {
 		
-		Map<String, Object> jsonMap = new HashMap<String, Object>();
-		jsonMap.put("httpcode", HttpServletResponse.SC_OK);
-		jsonMap.put("message", "Authentication success");
+		status.setStatusInfo("Authentication success");
+		status.setStatus(StatusInfo.SUCCESS);
 		
-        return jsonMap;
+        return status;
     }
 	
 	@RequestMapping(value = "logoutSuccess", method = RequestMethod.GET) 
 	@ResponseBody
-    public Map<String, Object> logoutSuccess() {
+    public StatusInfo logoutSuccess() {
 		
-		Map<String, Object> jsonMap = new HashMap<String, Object>();
-		jsonMap.put("httpcode", HttpServletResponse.SC_OK);
-		jsonMap.put("message", "Logout success");
+		status.setStatusInfo("Logout success");
+		status.setStatus(StatusInfo.SUCCESS);
 		
-        return jsonMap;
+        return status;
     }
 	
 	@RequestMapping(value = "unauthorized", method = { RequestMethod.GET, RequestMethod.POST }) 
 	@ResponseBody
-    public Map<String, Object> unauthorized() {
+    public StatusInfo unauthorized() {
 		
-		Map<String, Object> jsonMap = new HashMap<String, Object>();
-		jsonMap.put("httpcode", HttpServletResponse.SC_UNAUTHORIZED);
-		jsonMap.put("message", "Unauthorized");
+		status.setStatusInfo("Logout success");
+		status.setStatus(StatusInfo.SUCCESS);
 		
-		return jsonMap;
+        return status;
 	}
 	
 	@RequestMapping(value = "accessDenied", method = RequestMethod.GET) 
 	@ResponseBody
-    public Map<String, Object> accessDenied() {
+    public StatusInfo accessDenied() {
 		
-		Map<String, Object> jsonMap = new HashMap<String, Object>();
-		jsonMap.put("httpcode", HttpServletResponse.SC_FORBIDDEN);
-		jsonMap.put("message", "AccessDenied");
+		status.setStatusInfo("Logout success");
+		status.setStatus(StatusInfo.SUCCESS);
 		
-		return jsonMap;
+        return status;
 	}
-	
-	
 	
 	
 

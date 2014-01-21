@@ -12,6 +12,7 @@ import org.springframework.web.bind.annotation.ModelAttribute;
 
 import com.thirdblock.migo.account.service.UserService;
 import com.thirdblock.migo.core.bo.User;
+import com.thirdblock.migo.core.web.action.dto.StatusInfo;
 import com.thirdblock.migo.core.web.action.dto.Visitor;
 
 public class BaseAction {
@@ -21,6 +22,8 @@ public class BaseAction {
 	protected HttpServletRequest request;
 	protected HttpServletResponse response;
 	protected HttpSession session;
+	
+	protected StatusInfo status = new StatusInfo();
 	
 	@Autowired
 	private UserService userService;
