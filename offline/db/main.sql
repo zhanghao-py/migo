@@ -88,4 +88,13 @@ BEGIN;
 INSERT INTO `tb_user_role` VALUES ('1', '1', '1'), ('2', '4', '1'), ('3', '1', '2'), ('4', '5', '2'), ('5', '6', '2');
 COMMIT;
 
+
+DROP TABLE IF EXISTS `tb_category`;
+CREATE TABLE `tb_category` (
+  `id` bigint(20) NOT NULL AUTO_INCREMENT COMMENT '主键id',
+  `name` varchar(255) NOT NULL COMMENT '名称',
+  `parent_id` bigint(20) NULL COMMENT '父类id',
+  PRIMARY KEY (`id`)
+) ENGINE=InnoDB DEFAULT CHARSET=utf8 COMMENT='分类表';
+
 SET FOREIGN_KEY_CHECKS = 1;

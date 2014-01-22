@@ -17,7 +17,7 @@
 	
 		<access-denied-handler ref="accessDeniedHandler" />
 	
-		<form-login authentication-success-handler-ref="authenticationSuccessHandler" authentication-failure-handler-ref="authenticationFailureHandler" />
+		<form-login authentication-success-handler-ref="authenticationSuccessHandler" authentication-failure-handler-ref="authenticationFailureHandler" login-page="/login" />
 		<logout invalidate-session="true" success-handler-ref="logoutSuccessHandler" logout-url="/j_spring_security_logout" />
 		
 		<custom-filter before="FILTER_SECURITY_INTERCEPTOR" ref="securityFilter" />

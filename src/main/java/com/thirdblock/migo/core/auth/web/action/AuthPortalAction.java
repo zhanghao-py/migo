@@ -4,6 +4,7 @@ import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.servlet.ModelAndView;
+import org.springframework.web.servlet.view.RedirectView;
 
 import com.thirdblock.migo.core.web.action.BaseAction;
 
@@ -24,6 +25,11 @@ public class AuthPortalAction extends BaseAction {
 	@RequestMapping(value = "page403", method = RequestMethod.GET) 
     public ModelAndView page403() {
         return new ModelAndView("page403");
+    }
+	
+	@RequestMapping(value = "", method = RequestMethod.GET) 
+    public ModelAndView defaultPage() {
+        return new ModelAndView(new RedirectView("index"));
     }
 
 }
