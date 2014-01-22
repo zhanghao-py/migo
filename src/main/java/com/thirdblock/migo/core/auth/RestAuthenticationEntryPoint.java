@@ -20,8 +20,8 @@ public final class RestAuthenticationEntryPoint implements AuthenticationEntryPo
 
         // Set the 403 status code.
         response.setStatus(HttpServletResponse.SC_UNAUTHORIZED);
-        
-        request.getRequestDispatcher(defaultTargetUrl).forward(request, response);
+        response.sendRedirect(defaultTargetUrl);
+//        request.getRequestDispatcher(defaultTargetUrl).forward(request, response);
 	}
 
 	public void setDefaultTargetUrl(String defaultTargetUrl) {

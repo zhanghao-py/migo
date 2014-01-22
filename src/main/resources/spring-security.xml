@@ -7,14 +7,13 @@
 				http://www.springframework.org/schema/security 
                 http://www.springframework.org/schema/security/spring-security-3.1.xsd">
 
+	<http pattern="/lib/**" security="none" />
 	<http pattern="/js/**" security="none" />
 	<http pattern="/css/**" security="none" />
 	<http pattern="/images/**" security="none" />
 	<http pattern="/favicon.ico" security="none" />
-	<http pattern="/*.jsp" security="none" />
-
 	
-	<http entry-point-ref="restAuthenticationEntryPoint">
+	<http entry-point-ref="authenticationProcessingFilterEntryPoint">
 	
 		<access-denied-handler ref="accessDeniedHandler" />
 	
@@ -26,24 +25,23 @@
 	</http>
 	
 	<!-- 未登录的切入点 -->
-	<beans:bean id="restAuthenticationEntryPoint" class="com.thirdblock.migo.core.auth.RestAuthenticationEntryPoint">
-		<beans:property name="defaultTargetUrl" value="/unauthorized" />
-    </beans:bean>
+	<beans:bean id="authenticationProcessingFilterEntryPoint" class="org.springframework.security.web.authentication.LoginUrlAuthenticationEntryPoint">
+		<beans:property name="loginFormUrl" value="/login" />
+	</beans:bean>
     
     <beans:bean id="accessDeniedHandler" class="org.springframework.security.web.access.AccessDeniedHandlerImpl">
-    	<beans:property name="errorPage" value="/accessDenied" />
+    	<beans:property name="errorPage" value="/page403" />
     </beans:bean>
     
-    <beans:bean id="authenticationSuccessHandler" class="com.thirdblock.migo.core.auth.RestAuthenticationSuccessHandler">
-	    <beans:property name="defaultTargetUrl" value="/authenticationSuccess" />
+    <beans:bean id="authenticationSuccessHandler" class="org.springframework.security.web.authentication.SavedRequestAwareAuthenticationSuccessHandler">
+	</beans:bean>
+    
+	<beans:bean id="authenticationFailureHandler" class="org.springframework.security.web.authentication.SimpleUrlAuthenticationFailureHandler">    
+        <beans:property name="defaultFailureUrl" value="/login" />
     </beans:bean>
     
-    <beans:bean id="authenticationFailureHandler" class="com.thirdblock.migo.core.auth.RestAuthenticationFailureHandler">
-    	<beans:property name="defaultFailureUrl" value="/authenticationFailure" />
-    </beans:bean>
-    
- 	<beans:bean id="logoutSuccessHandler" class="com.thirdblock.migo.core.auth.RestLogoutSuccessHandler">
- 	    <beans:property name="defaultTargetUrl" value="/logoutSuccess" />
+ 	<beans:bean id="logoutSuccessHandler" class="org.springframework.security.web.authentication.logout.SimpleUrlLogoutSuccessHandler">
+ 	    <beans:property name="defaultTargetUrl" value="/index" />
     </beans:bean>
     
 	<!-- 访问控制验证器Authority -->
