@@ -1,5 +1,7 @@
 package com.thirdblock.migo.core.web.action;
 
+import java.util.Collection;
+
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
@@ -7,6 +9,7 @@ import javax.servlet.http.HttpSession;
 import org.apache.log4j.Logger;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.core.Authentication;
+import org.springframework.security.core.GrantedAuthority;
 import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.web.bind.annotation.ModelAttribute;
 
@@ -41,12 +44,15 @@ public class BaseAction {
 		Visitor visitor = null;
 		
 		if (authentication.isAuthenticated()) {
+
 			String username = authentication.getName();
 			User user = userService.findUserByUsername(username);
+			Collection<GrantedAuthority> authorities = (Collection<GrantedAuthority>) authentication.getAuthorities();
 			
 			visitor = new Visitor();
 			visitor.setId(user.getId());
 			visitor.setUsername(user.getUsername());
+			visitor.setAuthorities(authorities);
 		}
 		
 		return visitor;

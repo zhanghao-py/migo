@@ -97,4 +97,13 @@ CREATE TABLE `tb_category` (
   PRIMARY KEY (`id`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8 COMMENT='分类表';
 
+DROP TABLE IF EXISTS `tb_menu`;
+CREATE TABLE `tb_menu` (
+  `id` bigint(20) NOT NULL AUTO_INCREMENT COMMENT '主键id',
+  `name` varchar(255) NOT NULL COMMENT '名称',
+  `parent_id` bigint(20) NULL COMMENT '父类id',
+  `auth` varchar(255) NOT NULL COMMENT '权限',
+  PRIMARY KEY (`id`)
+) ENGINE=InnoDB DEFAULT CHARSET=utf8 COMMENT='菜单表';
+
 SET FOREIGN_KEY_CHECKS = 1;
