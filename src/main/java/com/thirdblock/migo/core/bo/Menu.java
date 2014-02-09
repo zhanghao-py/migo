@@ -2,7 +2,7 @@ package com.thirdblock.migo.core.bo;
 
 import java.io.Serializable;
 
-public class Menu implements Serializable{
+public class Menu implements Serializable {
 
 	private static final long serialVersionUID = 4017472645249133112L;
 

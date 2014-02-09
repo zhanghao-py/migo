@@ -39,7 +39,7 @@ COMMIT;
 -- ----------------------------
 DROP TABLE IF EXISTS `tb_role`;
 CREATE TABLE `tb_role` (
-  `id` int(10) NOT NULL AUTO_INCREMENT,
+  `id` bigint(20) NOT NULL AUTO_INCREMENT,
   `name` varchar(50) NOT NULL,
   PRIMARY KEY (`id`)
 ) ENGINE=InnoDB AUTO_INCREMENT=3 DEFAULT CHARSET=utf8;
@@ -56,7 +56,7 @@ COMMIT;
 -- ----------------------------
 DROP TABLE IF EXISTS `tb_user`;
 CREATE TABLE `tb_user` (
-  `id` int(10) NOT NULL AUTO_INCREMENT,
+  `id` bigint(20) NOT NULL AUTO_INCREMENT,
   `username` varchar(50) NOT NULL,
   `password` varchar(50) NOT NULL,
   `enabled` tinyint(3) NOT NULL,
@@ -75,9 +75,9 @@ COMMIT;
 -- ----------------------------
 DROP TABLE IF EXISTS `tb_user_role`;
 CREATE TABLE `tb_user_role` (
-  `id` int(10) NOT NULL AUTO_INCREMENT,
-  `user_id` int(10) NOT NULL,
-  `role_id` int(10) NOT NULL,
+  `id` bigint(20) NOT NULL AUTO_INCREMENT,
+  `user_id` bigint(20) NOT NULL,
+  `role_id` bigint(20) NOT NULL,
   PRIMARY KEY (`id`)
 ) ENGINE=InnoDB AUTO_INCREMENT=6 DEFAULT CHARSET=utf8;
 
@@ -105,5 +105,20 @@ CREATE TABLE `tb_menu` (
   `auth` varchar(255) NOT NULL COMMENT '权限',
   PRIMARY KEY (`id`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8 COMMENT='菜单表';
+
+DROP TABLE IF EXISTS `tb_commodity`;
+CREATE TABLE `tb_commodity` (
+  `id` bigint(20) NOT NULL AUTO_INCREMENT COMMENT '主键id',
+  `name` varchar(255) NOT NULL COMMENT '名称',
+  `descript` varchar(255) NULL COMMENT '商品摘要',
+  `category_id` bigint(20) NULL COMMENT '分类id',
+  `price` decimal NOT NULL COMMENT '会员价',
+  `original_price` decimal NOT NULL COMMENT '参考价',
+  `detail` text NOT NULL COMMENT '详细信息',
+  `create_time` datetime NOT NULL COMMENT '创建时间',
+  `update_time` datetime NULL COMMENT '更新时间',
+  `user_id` bigint(20) NOT NULL COMMENT '创建人',
+  PRIMARY KEY (`id`)
+) ENGINE=InnoDB DEFAULT CHARSET=utf8 COMMENT='商品表';
 
 SET FOREIGN_KEY_CHECKS = 1;
