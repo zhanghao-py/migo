@@ -1,40 +1,56 @@
 package com.thirdblock.migo.commodity.web.action;
 
 import org.springframework.stereotype.Controller;
+import org.springframework.web.bind.annotation.ModelAttribute;
+import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
-import org.springframework.web.servlet.ModelAndView;
+import org.springframework.web.bind.annotation.ResponseBody;
 
 import com.thirdblock.migo.core.web.action.BaseAction;
+import com.thirdblock.migo.core.web.action.dto.StatusInfo;
 
 @Controller
 @RequestMapping("commodity")
 public class CommodityAction extends BaseAction {
-
-	/*
-	@RequestMapping(value = "create", method = RequestMethod.POST) 
-    public ModelAndView create() {
-        return new ModelAndView("index");
+	
+	@RequestMapping(value = "{userId}", method = RequestMethod.GET)
+	@ResponseBody
+    public StatusInfo find(@PathVariable Long userId) {
+		status.setStatus(StatusInfo.SUCCESS);
+		status.setStatusInfo(StatusInfo.SUCCESS_MSG);
+        return status;
     }
 	
-	@RequestMapping(value = "delete", method = RequestMethod.DELETE) 
-    public ModelAndView delete() {
-        return new ModelAndView("index");
+	@RequestMapping(value = "{userId}", method = RequestMethod.DELETE)
+	@ResponseBody
+    public StatusInfo delete(@PathVariable Long userId) {
+		status.setStatus(StatusInfo.SUCCESS);
+		status.setStatusInfo(StatusInfo.SUCCESS_MSG);
+        return status;
     }
 	
-	@RequestMapping(value = "update", method = RequestMethod.PUT) 
-    public ModelAndView update() {
-        return new ModelAndView("index");
+	@RequestMapping(value = "", method = RequestMethod.POST) 
+	@ResponseBody
+    public StatusInfo create(@ModelAttribute Object form) {
+		status.setStatus(StatusInfo.SUCCESS);
+		status.setStatusInfo(StatusInfo.SUCCESS_MSG);
+        return status;
     }
 	
-	@RequestMapping(value = "find", method = RequestMethod.GET) 
-    public ModelAndView find() {
-        return new ModelAndView("index");
+	@RequestMapping(value = "{userId}", method = RequestMethod.PUT) 
+	@ResponseBody
+    public StatusInfo update(@PathVariable Long userId, @ModelAttribute Object form) {
+		status.setStatus(StatusInfo.SUCCESS);
+		status.setStatusInfo(StatusInfo.SUCCESS_MSG);
+        return status;
     }
 	
-	@RequestMapping(value = "list", method = RequestMethod.GET) 
-    public ModelAndView list() {
-        return new ModelAndView("index");
+	@RequestMapping(value = "search", method = RequestMethod.POST) 
+	@ResponseBody
+    public StatusInfo search(@ModelAttribute Object form) {
+		status.setStatus(StatusInfo.SUCCESS);
+		status.setStatusInfo(StatusInfo.SUCCESS_MSG);
+        return status;
     }
-    */
 }

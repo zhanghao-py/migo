@@ -75,7 +75,7 @@
                             </select>
                         </div>
                         <input type="text" class="search">
-                        <a class="btn-flat new-product">+ Add product</a>
+                        <a class="btn-flat new-product" href="commodity/create">+ Add product</a>
                     </div>
                 </div>
 

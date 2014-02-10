@@ -23,9 +23,8 @@
                     <i class="icon-chevron-down"></i>
                 </a>
                 <ul class="submenu">
-                    <li><a href="user-list.html">User list</a></li>
-                    <li><a href="new-user.html">New user form</a></li>
-                    <li><a href="user-profile.html">User profile</a></li>
+                    <li><a href="account/user/list">用户列表</a></li>
+                    <li><a href="account/user/create">添加用户</a></li>
                 </ul>
             </li>
             <li>
