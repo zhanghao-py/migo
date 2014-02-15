@@ -9,17 +9,24 @@
 		<result column="category_id" property="categoryId" jdbcType="BIGINT" />
 		<result column="original_price" property="originalPrice" jdbcType="DECIMAL" />
 		<result column="price" property="price" jdbcType="DECIMAL" />
-		<result column="detail" property="detail" jdbcType="VARCHAR" />
+		<result column="detail" property="detail" jdbcType="LONGVARCHAR" />
 		<result column="create_time" property="createTime" jdbcType="TIMESTAMP" />
 		<result column="update_time" property="updateTime" jdbcType="TIMESTAMP" />
 		<result column="user_id" property="userId" jdbcType="BIGINT" />
+		<result column="is_delete" property="isDelete" jdbcType="BOOLEAN" />
 	</resultMap>
 	
 	<insert id="save" parameterType="com.thirdblock.migo.core.bo.Commodity" useGeneratedKeys="true" keyProperty="id">
-		insert into tb_commodity (name, parent_id) 
+		insert into tb_commodity (name, description, category_id, original_price, price, detail, create_time, user_id) 
 		values (
 			#{name, jdbcType=VARCHAR},
-			#{parentId, jdbcType=BIGINT}
+			#{description, jdbcType=VARCHAR},
+			#{categoryId, jdbcType=BIGINT},
+			#{originalPrice, jdbcType=DECIMAL},
+			#{price, jdbcType=DECIMAL},
+			#{detail, jdbcType=LONGVARCHAR},
+			#{createTime, jdbcType=TIMESTAMP},
+			#{userId, jdbcType=BIGINT}
 		) 
 	</insert>
 	
@@ -29,9 +36,24 @@
 			<if test="name != null">
 				name = #{name, jdbcType=VARCHAR},
 			</if>
-			<if test="parentId != null">
-				parent_id = #{parentId, jdbcType=BIGINT},
+			<if test="description != null">
+				description = #{description, jdbcType=VARCHAR},
 			</if>
+			<if test="categoryId != null">
+				category_id = #{categoryId, jdbcType=BIGINT},
+			</if>			
+			<if test="originalPrice != null">
+				original_price = #{originalPrice, jdbcType=DECIMAL},
+			</if>
+			<if test="price != null">
+				price = #{price, jdbcType=DECIMAL},
+			</if>
+			<if test="detail != null">
+				detail = #{detail, jdbcType=LONGVARCHAR},
+			</if>
+			<if test="updateTime != null">
+				update_time = #{updateTime, jdbcType=TIMESTAMP},
+			</if>	
 		</set>
 		<where> 
 			id = #{id, jdbcType=BIGINT}
@@ -39,21 +61,16 @@
 	</update>
 	
 	<select id="findById" parameterType="java.lang.Long" resultMap="commodityResultMap">
-		select id, name, parent_id from tb_commodity
+		select id, name, description, category_id, original_price, price, detail, create_time, update_time, user_id from tb_commodity
 		<where>
-			id = #{id, jdbcType=BIGINT}
+			id = #{id, jdbcType=BIGINT} and is_delete = 0
 		</where>
 	</select>
 	
 	<update id="deleteById" parameterType="java.lang.Long" flushCache="true">
 		update tb_commodity
 		<set>
-			<if test="name != null">
-				name = #{name, jdbcType=VARCHAR},
-			</if>
-			<if test="parentId != null">
-				parent_id = #{parentId, jdbcType=BIGINT},
-			</if>
+			is_delete = 1,
 		</set>
 		<where> 
 			id = #{id, jdbcType=BIGINT}

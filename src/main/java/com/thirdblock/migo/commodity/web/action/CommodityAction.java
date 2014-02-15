@@ -14,6 +14,7 @@ import com.thirdblock.migo.commodity.web.action.dto.CommodityCreateForm;
 import com.thirdblock.migo.commodity.web.action.dto.CommoditySearchForm;
 import com.thirdblock.migo.core.bo.Commodity;
 import com.thirdblock.migo.core.excep.ServiceException;
+import com.thirdblock.migo.core.mybatis.pagination.PageBean;
 import com.thirdblock.migo.core.web.action.BaseAction;
 import com.thirdblock.migo.core.web.action.dto.StatusInfo;
 
@@ -101,9 +102,20 @@ public class CommodityAction extends BaseAction {
 	@RequestMapping(value = "search", method = RequestMethod.POST) 
 	@ResponseBody
     public StatusInfo search(@ModelAttribute CommoditySearchForm form) {
-		// TODO:
+		
+		PageBean<Commodity> page = null;
+		try {
+			page = commodityService.searchCommodities(form, getVisitor());
+		} catch (ServiceException e) {
+			logger.warn("", e);
+			status.setStatus(StatusInfo.FAILED);
+			status.setStatusInfo(e.getMessage());
+	        return status;
+		}
+		
 		status.setStatus(StatusInfo.SUCCESS);
 		status.setStatusInfo(StatusInfo.SUCCESS_MSG);
+		status.setData(page);
         return status;
     }
 }

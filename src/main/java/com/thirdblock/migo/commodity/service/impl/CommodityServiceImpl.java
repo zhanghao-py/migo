@@ -2,6 +2,7 @@ package com.thirdblock.migo.commodity.service.impl;
 
 import java.math.BigDecimal;
 import java.util.Date;
+import java.util.List;
 
 import org.apache.commons.lang.ObjectUtils;
 import org.apache.commons.lang.StringUtils;
@@ -11,8 +12,10 @@ import org.springframework.stereotype.Component;
 import com.thirdblock.migo.commodity.dao.CommodityDao;
 import com.thirdblock.migo.commodity.service.CommodityService;
 import com.thirdblock.migo.commodity.web.action.dto.CommodityCreateForm;
+import com.thirdblock.migo.commodity.web.action.dto.CommoditySearchForm;
 import com.thirdblock.migo.core.bo.Commodity;
 import com.thirdblock.migo.core.excep.ServiceException;
+import com.thirdblock.migo.core.mybatis.pagination.PageBean;
 import com.thirdblock.migo.core.web.action.dto.Visitor;
 
 @Component
@@ -87,6 +90,36 @@ public class CommodityServiceImpl implements CommodityService {
 		}
 		
 		commodityDao.deleteById(commodityId);
+	}
+
+	@Override
+	public PageBean<Commodity> searchCommodities(CommoditySearchForm form,
+			Visitor visitor) throws ServiceException {
+		
+		validateCommoditySearchForm(form);
+		
+		PageBean<Commodity> page = new PageBean<Commodity>();
+		page.setPageSize(form.getPageSize());
+		page.setCurrentPage(form.getCurrentPage());
+		
+		List<Commodity> commodities = commodityDao.searchCommodities(form, page);
+		
+		page.setData(commodities);
+		
+		return page;
+	}
+
+	private void validateCommoditySearchForm(CommoditySearchForm form) throws ServiceException {
+		
+		if (form.getCurrentPage() < 1) {
+			throw new ServiceException("搜索页数不能小于1页！");
+		}
+		
+		if (form.getPageSize() < 1) {
+			throw new ServiceException("每页大小不能小于1个！");
+		}
+		
+		return;
 	}
 
 }

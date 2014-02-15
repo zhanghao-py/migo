@@ -20,6 +20,7 @@ public class Commodity implements Serializable {
 	private Date createTime;
 	private Date updateTime;
 	private Long userId;
+	private Boolean isDelete;
 	
 	public Commodity() {}
 
@@ -112,4 +113,12 @@ public class Commodity implements Serializable {
 		this.userId = userId;
 	}
 
+	public Boolean getIsDelete() {
+		return isDelete;
+	}
+
+	public void setIsDelete(Boolean isDelete) {
+		this.isDelete = isDelete;
+	}
+	
 }
