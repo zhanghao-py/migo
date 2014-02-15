@@ -4,13 +4,15 @@ import java.io.Serializable;
 import java.math.BigDecimal;
 import java.util.Date;
 
+import com.thirdblock.migo.commodity.web.action.dto.CommodityCreateForm;
+
 public class Commodity implements Serializable {
 
 	private static final long serialVersionUID = 7051339463177492785L;
 
 	private Long id;
 	private String name;
-	private String descript;
+	private String description;
 	private Long categoryId;
 	private BigDecimal price;
 	private BigDecimal originalPrice;
@@ -18,6 +20,17 @@ public class Commodity implements Serializable {
 	private Date createTime;
 	private Date updateTime;
 	private Long userId;
+	
+	public Commodity() {}
+
+	public Commodity(CommodityCreateForm form) {
+		this.name = form.getName();
+		this.description = form.getDescription();
+		this.categoryId = form.getCategoryId();
+		this.price = form.getPrice();
+		this.originalPrice = form.getOriginalPrice();
+		this.detail = form.getDetail();
+	}
 
 	public Long getId() {
 		return id;
@@ -35,12 +48,12 @@ public class Commodity implements Serializable {
 		this.name = name;
 	}
 
-	public String getDescript() {
-		return descript;
+	public String getDescription() {
+		return description;
 	}
 
-	public void setDescript(String descript) {
-		this.descript = descript;
+	public void setDescription(String description) {
+		this.description = description;
 	}
 
 	public Long getCategoryId() {

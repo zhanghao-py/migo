@@ -110,7 +110,7 @@ DROP TABLE IF EXISTS `tb_commodity`;
 CREATE TABLE `tb_commodity` (
   `id` bigint(20) NOT NULL AUTO_INCREMENT COMMENT '主键id',
   `name` varchar(255) NOT NULL COMMENT '名称',
-  `descript` varchar(255) NULL COMMENT '商品摘要',
+  `description` varchar(255) NULL COMMENT '商品摘要',
   `category_id` bigint(20) NULL COMMENT '分类id',
   `price` decimal NOT NULL COMMENT '会员价',
   `original_price` decimal NOT NULL COMMENT '参考价',

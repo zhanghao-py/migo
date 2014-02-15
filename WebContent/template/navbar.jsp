@@ -119,7 +119,7 @@
                 </a>
             </li>
             <li class="settings hidden-xs hidden-sm">
-                <a href="signin.html" role="button">
+                <a href="j_spring_security_logout" role="button">
                     <i class="icon-share-alt"></i>
                 </a>
             </li>
