@@ -122,4 +122,13 @@ CREATE TABLE `tb_commodity` (
   PRIMARY KEY (`id`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8 COMMENT='商品表';
 
+
+DROP TABLE IF EXISTS `tb_repository`;
+CREATE TABLE `tb_repository` (
+  `id` bigint(20) NOT NULL AUTO_INCREMENT COMMENT '主键id',
+  `name` varchar(255) NOT NULL COMMENT '名称',
+  `description` varchar(255) NULL COMMENT '用户组信息摘要',
+  PRIMARY KEY (`id`)
+) ENGINE=InnoDB DEFAULT CHARSET=utf8 COMMENT='用户组表';
+
 SET FOREIGN_KEY_CHECKS = 1;

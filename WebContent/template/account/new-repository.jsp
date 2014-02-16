@@ -54,7 +54,7 @@
         <div id="pad-wrapper" class="new-user">
             <div class="row header">
                 <div class="col-md-12">
-                    <h3>创建新用户</h3>
+                    <h3>创建新用户组</h3>
                 </div>                
             </div>
 
@@ -62,59 +62,19 @@
                 <!-- left column -->
                 <div class="col-md-9 with-sidebar">
                     <div class="container">
-                        <form class="new_user_form">
+                        <form class="new_user_form" id="new-repository-form" action="account/repository" method="POST">
                             <div class="col-md-12 field-box">
-                                <label>Name:</label>
-                                <input class="form-control" type="text" />
+                                <label>名称:</label>
+                                <input class="form-control" type="text" name="name" />
                             </div>
                             <div class="col-md-12 field-box">
-                                <label>State:</label>
-                                <div class="ui-select span5">
-                                    <select>
-                                        <option value="AK">Alaska</option>
-                                        <option value="HI">Hawaii</option>
-                                        <option value="CA">California</option>
-                                        <option value="NV">Nevada</option>
-                                        <option value="OR">Oregon</option>
-                                        <option value="WA">Washington</option>
-                                        <option value="AZ">Arizona</option>
-                                    </select>
-                                </div>
-                            </div>
-                            <div class="col-md-12 field-box">
-                                <label>Company:</label>
-                                <input class="col-md-9 form-control" type="text" />
-                            </div>
-                            <div class="col-md-12 field-box">
-                                <label>Email:</label>
-                                <input class="col-md-9 form-control" type="text" />
-                            </div>
-                            <div class="col-md-12 field-box">
-                                <label>Phone:</label>
-                                <input class="col-md-9 form-control" type="text" />
-                            </div>
-                            <div class="col-md-12 field-box">
-                                <label>Website:</label>
-                                <input class="col-md-9 form-control" type="text" />
-                            </div>
-                            <div class="col-md-12 field-box">
-                                <label>Address:</label>
-                                <div class="address-fields">
-                                    <input class="form-control" type="text" placeholder="Street address" />
-                                    <input class="small form-control" type="text" placeholder="City" />
-                                    <input class="small form-control" type="text" placeholder="State" />
-                                    <input class="small last form-control" type="text" placeholder="Postal Code" />
-                                </div>
-                            </div>
-                            <div class="col-md-12 field-box textarea">
-                                <label>Notes:</label>
-                                <textarea class="col-md-9"></textarea>
-                                <span class="charactersleft">90 characters remaining. Field limited to 100 characters</span>
+                                <label>描述:</label>
+                                <input class="col-md-9 form-control" type="text" name="description" />
                             </div>
                             <div class="col-md-11 field-box actions">
-                                <input type="button" class="btn-glow primary" value="Create user">
+                                <input type="button" class="btn-glow primary" value="创建" id="new-repository-btn">
                                 <span>OR</span>
-                                <input type="reset" value="Cancel" class="reset">
+                                <input type="reset" value="取消" class="reset">
                             </div>
                         </form>
                     </div>
@@ -162,6 +122,32 @@
                 } else {
                     $form.removeClass("inline-input");
                 }
+            });
+
+
+
+            $("#new-repository-btn").click(function() {
+
+
+                var name = $("input[name=name]").val();
+                var description = $("input[name=description]").val();
+
+                var url = $("#new-repository-form").attr('action');
+                var method = $("#new-repository-form").attr('method');
+
+                $.ajax({
+                    type: method,
+                    url: url,
+                    dataType: 'json',
+                    data: {name: name, description: description},
+                    success: function(data, textStatus, jqXHR){
+                        console.log(data.statusInfo);
+                    } 
+                }); 
+
+
+
+
             });
         });
     </script>

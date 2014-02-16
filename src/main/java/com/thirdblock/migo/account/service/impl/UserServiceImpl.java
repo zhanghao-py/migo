@@ -1,5 +1,6 @@
 package com.thirdblock.migo.account.service.impl;
 
+import org.apache.commons.lang.ObjectUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 import org.springframework.util.Assert;
@@ -7,7 +8,9 @@ import org.springframework.util.Assert;
 import com.thirdblock.migo.account.dao.UserDao;
 import com.thirdblock.migo.account.service.RoleService;
 import com.thirdblock.migo.account.service.UserService;
+import com.thirdblock.migo.account.web.action.dto.UserCreateForm;
 import com.thirdblock.migo.core.bo.User;
+import com.thirdblock.migo.core.excep.ServiceException;
 
 @Component("userService")
 public class UserServiceImpl implements UserService {
@@ -25,11 +28,29 @@ public class UserServiceImpl implements UserService {
 	}
 
 	@Override
-	public Long save(User user) {
-		Assert.notNull(user, "user can't be null.");
-		userDao.save(user);
-		return user.getId();
+	public void saveOrUpdateUser(UserCreateForm form) throws ServiceException {
+		
+		validateUserCreateForm(form);
+		
+		User user = new User(form);
+		
+		if (ObjectUtils.notEqual(form.getId(), null) && form.getId() > 0L) {
+			user.setId(form.getId());
+//			commodity.setCreateTime(new Date());
+			userDao.update(user);
+		} else {
+//			commodity.setCreateTime(new Date());
+			userDao.save(user);
+		}
+		
+		return;
 	}
+
+	private void validateUserCreateForm(UserCreateForm form) throws ServiceException {
+		// TODO Auto-generated method stub
+		
+	}
+
 
 //	private Long update(SysUser user) {
 //		Assert.notNull(user, "user can't be null.");

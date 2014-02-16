@@ -2,6 +2,8 @@ package com.thirdblock.migo.core.bo;
 
 import java.io.Serializable;
 
+import com.thirdblock.migo.account.web.action.dto.UserCreateForm;
+
 public class User implements Serializable {
 
 	private static final long serialVersionUID = -8138447347176260275L;
@@ -11,6 +13,13 @@ public class User implements Serializable {
 	private String password;
 	private Boolean enabled;
 	
+	public User() {}
+	
+	public User(UserCreateForm form) {
+		this.username = form.getUsername();
+		this.enabled = Boolean.TRUE;
+	}
+
 	public Long getId() {
 		return id;
 	}
