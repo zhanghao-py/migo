@@ -143,9 +143,7 @@
                     success: function(data, textStatus, jqXHR){
                         console.log(data.statusInfo);
                     } 
-                }); 
-
-
+                });
 
 
             });

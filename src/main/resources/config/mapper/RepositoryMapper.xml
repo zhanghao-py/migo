@@ -31,6 +31,11 @@
 		</where>
 	</update>
 	
+	
+	<select id="searchRepositories" parameterType="com.thirdblock.migo.account.web.action.dto.RepositorySearchForm" resultMap="repositoryResultMap">
+		select id, name, description from tb_repository
+	</select>
+	
 
 </mapper>
 

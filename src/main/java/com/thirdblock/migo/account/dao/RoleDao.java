@@ -8,8 +8,8 @@ import com.thirdblock.migo.core.bo.Role;
 
 public interface RoleDao {
 	
-	public List<Role> findRolesByUserId(@Param("userId") Long userId);
+	public List<Role> findRolesByUserId(Long userId);
 
-	public Role findRoleByName(@Param("roleName") String roleName);
+	public Role findRoleByName(String roleName);
 
 }

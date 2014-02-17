@@ -1,5 +1,7 @@
 package com.thirdblock.migo.account.service.impl;
 
+import java.util.List;
+
 import org.apache.commons.lang.ObjectUtils;
 import org.apache.commons.lang.StringUtils;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -8,8 +10,10 @@ import org.springframework.stereotype.Component;
 import com.thirdblock.migo.account.dao.RepositoryDao;
 import com.thirdblock.migo.account.service.RepositoryService;
 import com.thirdblock.migo.account.web.action.dto.RepositoryCreateForm;
+import com.thirdblock.migo.account.web.action.dto.RepositorySearchForm;
 import com.thirdblock.migo.core.bo.Repository;
 import com.thirdblock.migo.core.excep.ServiceException;
+import com.thirdblock.migo.core.mybatis.pagination.PageBean;
 
 @Component
 public class RepositoryServiceImpl implements RepositoryService {
@@ -42,6 +46,36 @@ public class RepositoryServiceImpl implements RepositoryService {
 		}
 		
 		return;
+	}
+
+	@Override
+	public PageBean<Repository> searchRepositories(RepositorySearchForm form) throws ServiceException {
+		
+		validateRepositorySearchForm(form);
+		
+		PageBean<Repository> page = new PageBean<Repository>();
+		page.setPageSize(form.getPageSize());
+		page.setCurrentPage(form.getCurrentPage());
+		
+		List<Repository> repositories = repositoryDao.searchRepositories(form, page);
+		
+		page.setData(repositories);
+		
+		return page;
+		
+	}
+
+	private void validateRepositorySearchForm(RepositorySearchForm form) throws ServiceException {
+		if (form.getCurrentPage() < 1) {
+			throw new ServiceException("搜索页数不能小于1页！");
+		}
+		
+		if (form.getPageSize() < 1) {
+			throw new ServiceException("每页大小不能小于1个！");
+		}
+		
+		return;
+		
 	}
 
 }
