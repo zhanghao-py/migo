@@ -30,6 +30,85 @@
     <!-- this page specific styles -->
     <link rel="stylesheet" href="css/compiled/user-list.css" type="text/css" media="screen" />
 
+    <style type="text/css">
+        .pagination {
+          margin: 20px 0;
+        }
+
+        .pagination ul {
+          display: inline-block;
+          *display: inline;
+          margin-bottom: 0;
+          margin-left: 0;
+          -webkit-border-radius: 4px;
+             -moz-border-radius: 4px;
+                  border-radius: 4px;
+          *zoom: 1;
+          -webkit-box-shadow: 0 1px 2px rgba(0, 0, 0, 0.05);
+             -moz-box-shadow: 0 1px 2px rgba(0, 0, 0, 0.05);
+                  box-shadow: 0 1px 2px rgba(0, 0, 0, 0.05);
+        }
+
+        .pagination ul > li {
+          display: inline;
+        }
+
+        .pagination ul > li > a,
+        .pagination ul > li > span {
+          float: left;
+          padding: 4px 12px;
+          line-height: 20px;
+          text-decoration: none;
+          background-color: #ffffff;
+          border: 1px solid #dddddd;
+          border-left-width: 0;
+          cursor: pointer;
+        }
+
+        .pagination ul > li > a:hover,
+        .pagination ul > li > a:focus,
+        .pagination ul > .active > a,
+        .pagination ul > .active > span {
+          background-color: #f5f5f5;
+        }
+
+        .pagination ul > .active > a,
+        .pagination ul > .active > span {
+          color: #999999;
+          cursor: default;
+        }
+
+        .pagination ul > .disabled > span,
+        .pagination ul > .disabled > a,
+        .pagination ul > .disabled > a:hover,
+        .pagination ul > .disabled > a:focus {
+          color: #999999;
+          cursor: default;
+          background-color: transparent;
+        }
+
+        .pagination ul > li:first-child > a,
+        .pagination ul > li:first-child > span {
+          border-left-width: 1px;
+          -webkit-border-bottom-left-radius: 4px;
+                  border-bottom-left-radius: 4px;
+          -webkit-border-top-left-radius: 4px;
+                  border-top-left-radius: 4px;
+          -moz-border-radius-bottomleft: 4px;
+          -moz-border-radius-topleft: 4px;
+        }
+
+        .pagination ul > li:last-child > a,
+        .pagination ul > li:last-child > span {
+          -webkit-border-top-right-radius: 4px;
+                  border-top-right-radius: 4px;
+          -webkit-border-bottom-right-radius: 4px;
+                  border-bottom-right-radius: 4px;
+          -moz-border-radius-topright: 4px;
+          -moz-border-radius-bottomright: 4px;
+        }
+    </style>
+
     <!-- open sans font -->
     <link href='http://fonts.googleapis.com/css?family=Open+Sans:300italic,400italic,600italic,700italic,800italic,400,300,600,700,800' rel='stylesheet' type='text/css'>
 
@@ -53,7 +132,7 @@
         
         <div id="pad-wrapper" class="users-list">
             <div class="row header">
-                <h3>Users</h3>
+                <h3>用户列表</h3>
                 <div class="col-md-10 col-sm-12 col-xs-12 pull-right">
                     <input type="text" class="col-md-5 search" placeholder="Type a user's name...">
                     
@@ -74,6 +153,7 @@
                                 <p class="title">
                                     Show users where:
                                 </p>
+                                <form action="account/user/search" method="POST" id="user-search-form">
                                 <div class="form">
                                     <select>
                                         <option>Name</option>
@@ -92,13 +172,14 @@
                                     <input type="text" class="form-control" />
                                     <a class="btn-flat small">Add filter</a>
                                 </div>
+                                </form>
                             </div>
                         </div>
                     </div>
 
                     <a href="account/user/create" class="btn-flat success pull-right">
                         <span>&#43;</span>
-                        NEW USER
+                        添加新用户
                     </a>
                 </div>
             </div>
@@ -110,186 +191,44 @@
                         <thead>
                             <tr>
                                 <th class="col-md-4 sortable">
-                                    Name
+                                    用户名
                                 </th>
                                 <th class="col-md-3 sortable">
-                                    <span class="line"></span>Signed up
+                                    <span class="line"></span>状态
                                 </th>
                                 <th class="col-md-2 sortable">
-                                    <span class="line"></span>Total spent
+                                    <span class="line"></span>用户组
                                 </th>
-                                <th class="col-md-3 sortable align-right">
-                                    <span class="line"></span>Email
+                                <th class="col-md-3 sortable">
+                                    <span class="line"></span>用户组描述
                                 </th>
                             </tr>
                         </thead>
-                        <tbody>
+                        <tbody id="datas">
                         <!-- row -->
-                        <tr class="first">
+                        <tr id="template" class="tpl" style="display:none;">
                             <td>
                                 <img src="img/contact-img.png" class="img-circle avatar hidden-phone" />
-                                <a href="account/user/profile" class="name">Alejandra Galvan Castillo</a>
+                                <a href="account/user/profile" class="name"><span id="username"></span></a>
                                 <span class="subtext">Graphic Design</span>
                             </td>
                             <td>
-                                Mar 13, 2012
+                                <span id="status-active" class="label label-success" style="display:none;">Active</span>
+                                <span id="status-passive" class="label label-info" style="display:none;">Passive</span>
                             </td>
                             <td>
-                                $ 4,500.00
+                                <span id="repositoryName"></span>
                             </td>
-                            <td class="align-right">
-                                <a href="#">alejandra@canvas.com</a>
+                            <td>
+                                <span id="repositoryDescription"></span>
                             </td>
                         </tr>
-                        <!-- row -->
-                        <tr>
-                            <td>
-                                <img src="img/contact-img2.png" class="img-circle avatar hidden-phone" />
-                                <a href="account/user/profile" class="name">Alejandra Galvan Castillo</a>
-                                <span class="subtext">Graphic Design</span>
-                            </td>
-                            <td>
-                                Jun 03, 2012
-                            </td>
-                            <td>
-                                $ 549.99
-                            </td>
-                            <td class="align-right">
-                                <a href="#">alejandra@canvas.com</a>
-                            </td>
-                        </tr>
-                        <!-- row -->
-                        <tr>
-                            <td>
-                                <img src="img/contact-img.png" class="img-circle avatar hidden-phone" />
-                                <a href="account/user/profile" class="name">Alejandra Galvan Castillo</a>
-                                <span class="subtext">Graphic Design</span>
-                            </td>
-                            <td>
-                                Mar 01, 2013
-                            </td>
-                            <td>
-                                $ 30.00
-                            </td>
-                            <td class="align-right">
-                                <a href="#">alejandra@canvas.com</a>
-                            </td>
-                        </tr>
-                        <!-- row -->
-                        <tr>
-                            <td>
-                                <img src="img/contact-img2.png" class="img-circle avatar hidden-phone" />
-                                <a href="account/user/profile" class="name">Alejandra Galvan Castillo</a>
-                                <span class="subtext">Graphic Design</span>
-                            </td>
-                            <td>
-                                Jan 28, 2012
-                            </td>
-                            <td>
-                                $ 1,320.00
-                            </td>
-                            <td class="align-right">
-                                <a href="#">alejandra@canvas.com</a>
-                            </td>
-                        </tr>
-                        <!-- row -->
-                        <tr>
-                            <td>
-                                <img src="img/contact-img.png" class="img-circle avatar hidden-phone" />
-                                <a href="account/user/profile" class="name">Alejandra Galvan Castillo</a>
-                                <span class="subtext">Graphic Design</span>
-                            </td>
-                            <td>
-                                May 16, 2012
-                            </td>
-                            <td>
-                                $ 89.99
-                            </td>
-                            <td class="align-right">
-                                <a href="#">alejandra@canvas.com</a>
-                            </td>
-                        </tr>
-                        <!-- row -->
-                        <tr>
-                            <td>
-                                <img src="img/contact-img2.png" class="img-circle avatar hidden-phone" />
-                                <a href="account/user/profile" class="name">Alejandra Galvan Castillo</a>
-                                <span class="subtext">Graphic Design</span>
-                            </td>
-                            <td>
-                                Sep 06, 2012
-                            </td>
-                            <td>
-                                $ 344.00
-                            </td>
-                            <td class="align-right">
-                                <a href="#">alejandra@canvas.com</a>
-                            </td>
-                        </tr>
-                        <!-- row -->
-                        <tr>
-                            <td>
-                                <img src="img/contact-img.png" class="img-circle avatar hidden-phone" />
-                                <a href="account/user/profile" class="name">Alejandra Galvan Castillo</a>
-                                <span class="subtext">Graphic Design</span>
-                            </td>
-                            <td>
-                                Jul 13, 2012
-                            </td>
-                            <td>
-                                $ 800.00
-                            </td>
-                            <td class="align-right">
-                                <a href="#">alejandra@canvas.com</a>
-                            </td>
-                        </tr>
-                        <!-- row -->
-                        <tr>
-                            <td>
-                                <img src="img/contact-img2.png" class="img-circle avatar hidden-phone" />
-                                <a href="account/user/profile" class="name">Alejandra Galvan Castillo</a>
-                                <span class="subtext">Graphic Design</span>
-                            </td>
-                            <td>
-                                Feb 13, 2013
-                            </td>
-                            <td>
-                                $ 250.00
-                            </td>
-                            <td class="align-right">
-                                <a href="#">alejandra@canvas.com</a>
-                            </td>
-                        </tr>
-                        <!-- row -->
-                        <tr>
-                            <td>
-                                <img src="img/contact-img.png" class="img-circle avatar hidden-phone" />
-                                <a href="account/user/profile" class="name">Alejandra Galvan Castillo</a>
-                                <span class="subtext">Graphic Design</span>
-                            </td>
-                            <td>
-                                Feb 27, 2013
-                            </td>
-                            <td>
-                                $ 1,300.00
-                            </td>
-                            <td class="align-right">
-                                <a href="#">alejandra@canvas.com</a>
-                            </td>
-                        </tr>
+
                         </tbody>
                     </table>
                 </div>                
             </div>
-            <ul class="pagination pull-right">
-                <li><a href="#">&#8249;</a></li>
-                <li class="active"><a href="#">1</a></li>
-                <li><a href="#">2</a></li>
-                <li><a href="#">3</a></li>
-                <li><a href="#">4</a></li>
-                <li><a href="#">5</a></li>
-                <li><a href="#">&#8250;</a></li>
-            </ul>
+            <div id="pager"></div>
             <!-- end users table -->
         </div>
     </div>
@@ -300,5 +239,85 @@
     <script src="lib/jquery-1.10.2.min.js"></script>
     <script src="lib/bootstrap.min.js"></script>
     <script src="lib/theme.js"></script>
+    <script src="lib/bootstrap-paginator.min.js"></script>
+
+    <script type="text/javascript">
+
+
+        function searchUsers(currentPage, pageSize) {
+
+            var url = $("#user-search-form").attr('action');
+            var method = $("#user-search-form").attr('method');
+
+            $.ajax({
+                type: method,
+                url: url,
+                dataType: 'json',
+                data: {currentPage: currentPage, pageSize: pageSize},
+                success: function(data, textStatus, jqXHR){
+
+                    var status = data.status;
+                    var statusInfo = data.statusInfo;
+                    
+
+                    if (status) {
+                        alert("出错啦，" + statusInfo);
+                        return;
+                    }
+
+                    var data = data.data;
+                    $(".tpl:not(:first)").remove();
+                    $.each(data.data, function(i, e) {
+                        var row = $("#template").clone();
+
+                        //e.id;
+                        row.find("#username").text(e.username);
+                        if (e.enabled) {
+                            row.find("#status-active").removeAttr("style");
+                        } else {
+                            row.find("#status-passive").removeAttr("style");
+                        }
+                        row.find("#repositoryName").text(e.repositoryName);
+                        row.find("#repositoryDescription").text(e.repositoryDescription);
+
+
+                        row.removeAttr("style");
+                        row.appendTo("#datas");
+
+                    });
+
+                    
+                    var pageSize = data.pageSize;
+                    var totalPage = data.totalPage;
+                    initialPager(currentPage, pageSize, totalPage);
+
+                } 
+            });
+
+        }
+
+        function initialPager(currentPage, pageSize, totalPage) {
+            var options = {
+                currentPage: currentPage,
+                numberOfPages: pageSize,
+                totalPages: totalPage,
+                onPageClicked: function(e, originalEvent, type, page){
+                    searchUsers(page, pageSize);
+                }
+            }
+
+            $('#pager').bootstrapPaginator(options);
+            $('#pager').addClass("pull-right");
+        }
+
+
+        $(document).ready(function(){
+
+            var pageSize = 10;
+            var page = 1;
+            searchUsers(page, pageSize);
+
+        });
+    </script>
 </body>
 </html>

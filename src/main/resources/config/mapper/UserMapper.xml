@@ -9,6 +9,14 @@
 		<result column="enabled" property="enabled" jdbcType="BOOLEAN" />
 		<result column="repository_id" property="repositoryId" jdbcType="BIGINT" />
 	</resultMap>
+	
+	<resultMap type="com.thirdblock.migo.account.web.action.dto.SearchUsersVO" id="searchUsersResultMap">
+		<id column="id" property="id" jdbcType="BIGINT" />
+		<result column="username" property="username" jdbcType="VARCHAR" />
+		<result column="enabled" property="enabled" jdbcType="BOOLEAN" />
+		<result column="name" property="repositoryName" jdbcType="VARCHAR" />
+		<result column="description" property="repositoryDescription" jdbcType="VARCHAR" />
+	</resultMap>
 
 	<select id="findUserByUsername" parameterType="java.lang.String" resultMap="userResultMap">
 		select id, password, username, enabled, repository_id from tb_user
@@ -26,7 +34,11 @@
 			#{repositoryId, jdbcType=BIGINT}
 		) 
 	</insert>
-
+	
+	
+	<select id="searchUsers" parameterType="com.thirdblock.migo.account.web.action.dto.UserSearchForm" resultMap="searchUsersResultMap">
+		select u.id, u.username, u.enabled, r.name, r.description from tb_user u left join tb_repository r on u.repository_id = r.id
+	</select>
 
 
 </mapper>

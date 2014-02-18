@@ -1,5 +1,7 @@
 package com.thirdblock.migo.account.service.impl;
 
+import java.util.List;
+
 import org.apache.commons.lang.ObjectUtils;
 import org.apache.commons.lang.StringUtils;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -9,10 +11,13 @@ import org.springframework.util.Assert;
 import com.thirdblock.migo.account.dao.UserDao;
 import com.thirdblock.migo.account.service.RoleService;
 import com.thirdblock.migo.account.service.UserService;
+import com.thirdblock.migo.account.web.action.dto.SearchUsersVO;
 import com.thirdblock.migo.account.web.action.dto.UserCreateForm;
+import com.thirdblock.migo.account.web.action.dto.UserSearchForm;
 import com.thirdblock.migo.core.bo.Role;
 import com.thirdblock.migo.core.bo.User;
 import com.thirdblock.migo.core.excep.ServiceException;
+import com.thirdblock.migo.core.mybatis.pagination.PageBean;
 
 @Component("userService")
 public class UserServiceImpl implements UserService {
@@ -40,9 +45,7 @@ public class UserServiceImpl implements UserService {
 			user.setId(form.getId());
 			userDao.update(user);
 		} else {
-			// tb_user
 			userDao.save(user);
-			// tb_user_role
 			roleService.addRole4User(Role.ROLE_USER, user);
 		}
 		
@@ -64,6 +67,37 @@ public class UserServiceImpl implements UserService {
 		}
 		return;
 		
+	}
+
+	@Override
+	public PageBean<SearchUsersVO> searchUsers(UserSearchForm form)
+			throws ServiceException {
+		
+		validateUserSearchForm(form);
+		
+		PageBean<SearchUsersVO> page = new PageBean<SearchUsersVO>();
+		page.setPageSize(form.getPageSize());
+		page.setCurrentPage(form.getCurrentPage());
+		page.setPage(form.isPage());
+		
+		List<SearchUsersVO> users = userDao.searchUsers(form, page);
+		
+		page.setData(users);
+		
+		return page;
+		
+	}
+
+	private void validateUserSearchForm(UserSearchForm form) throws ServiceException {
+		if (form.getCurrentPage() < 1) {
+			throw new ServiceException("搜索页数不能小于1页！");
+		}
+		
+		if (form.getPageSize() < 1) {
+			throw new ServiceException("每页大小不能小于1个！");
+		}
+		
+		return;
 	}
 
 
