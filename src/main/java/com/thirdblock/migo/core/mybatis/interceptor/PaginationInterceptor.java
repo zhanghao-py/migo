@@ -70,6 +70,10 @@ public class PaginationInterceptor implements Interceptor {
 
 		@SuppressWarnings("unchecked")
 		PageBean<Object> page = (PageBean<Object>) p;
+		
+		if (!page.isPage()) {
+			return invocation.proceed();
+		}
 
 		int count = getCountRecord(statementHandler, metaStatementHandler);
 

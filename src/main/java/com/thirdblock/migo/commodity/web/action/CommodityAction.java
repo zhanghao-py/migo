@@ -1,6 +1,5 @@
 package com.thirdblock.migo.commodity.web.action;
 
-import org.apache.log4j.Logger;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.ModelAttribute;
@@ -21,8 +20,6 @@ import com.thirdblock.migo.core.web.action.dto.StatusInfo;
 @Controller
 @RequestMapping("commodity")
 public class CommodityAction extends BaseAction {
-	
-	private Logger logger = Logger.getLogger(CommodityAction.class);
 	
 	@Autowired
 	private CommodityService commodityService;

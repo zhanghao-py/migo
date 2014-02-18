@@ -4,6 +4,7 @@ public class RepositorySearchForm {
 
 	private int pageSize = 10;
 	private int currentPage = 1;
+	private boolean isPage = true;
 
 	public int getPageSize() {
 		return pageSize;
@@ -21,4 +22,12 @@ public class RepositorySearchForm {
 		this.currentPage = currentPage;
 	}
 
+	public boolean isPage() {
+		return isPage;
+	}
+
+	public void setPage(boolean isPage) {
+		this.isPage = isPage;
+	}
+	
 }

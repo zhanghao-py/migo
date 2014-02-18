@@ -142,6 +142,7 @@
                     data: {name: name, description: description},
                     success: function(data, textStatus, jqXHR){
                         console.log(data.statusInfo);
+                        alert(data.statusInfo);
                     } 
                 });
 

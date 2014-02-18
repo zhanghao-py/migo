@@ -16,6 +16,7 @@ import com.thirdblock.migo.core.bo.UserRole;
 @Component("roleService")
 public class RoleServiceImpl implements RoleService {
 	
+	
 	@Autowired
 	private RoleDao roleDao;
 	

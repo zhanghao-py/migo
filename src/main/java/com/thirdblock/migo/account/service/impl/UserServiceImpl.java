@@ -1,6 +1,7 @@
 package com.thirdblock.migo.account.service.impl;
 
 import org.apache.commons.lang.ObjectUtils;
+import org.apache.commons.lang.StringUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 import org.springframework.util.Assert;
@@ -9,6 +10,7 @@ import com.thirdblock.migo.account.dao.UserDao;
 import com.thirdblock.migo.account.service.RoleService;
 import com.thirdblock.migo.account.service.UserService;
 import com.thirdblock.migo.account.web.action.dto.UserCreateForm;
+import com.thirdblock.migo.core.bo.Role;
 import com.thirdblock.migo.core.bo.User;
 import com.thirdblock.migo.core.excep.ServiceException;
 
@@ -36,18 +38,31 @@ public class UserServiceImpl implements UserService {
 		
 		if (ObjectUtils.notEqual(form.getId(), null) && form.getId() > 0L) {
 			user.setId(form.getId());
-//			commodity.setCreateTime(new Date());
 			userDao.update(user);
 		} else {
-//			commodity.setCreateTime(new Date());
+			// tb_user
 			userDao.save(user);
+			// tb_user_role
+			roleService.addRole4User(Role.ROLE_USER, user);
 		}
 		
 		return;
 	}
 
 	private void validateUserCreateForm(UserCreateForm form) throws ServiceException {
-		// TODO Auto-generated method stub
+		
+		if (StringUtils.isBlank(form.getUsername())) {
+			throw new ServiceException("用户名不能为空！");
+		}
+		
+		if (StringUtils.isBlank(form.getPassword())) {
+			throw new ServiceException("密码不能为空！");
+		}
+		
+		if (ObjectUtils.equals(form.getRepositoryId(), null) || form.getRepositoryId() < 1L) {
+			throw new ServiceException("用户组不能为空！");
+		}
+		return;
 		
 	}
 

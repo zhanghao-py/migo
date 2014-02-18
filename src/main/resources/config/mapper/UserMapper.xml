@@ -7,22 +7,23 @@
 		<result column="username" property="username" jdbcType="VARCHAR" />
 		<result column="password" property="password" jdbcType="VARCHAR" />
 		<result column="enabled" property="enabled" jdbcType="BOOLEAN" />
+		<result column="repository_id" property="repositoryId" jdbcType="BIGINT" />
 	</resultMap>
 
 	<select id="findUserByUsername" parameterType="java.lang.String" resultMap="userResultMap">
-		select id, password, username, enabled from tb_user
+		select id, password, username, enabled, repository_id from tb_user
 		<where>
 			username = #{username, jdbcType=VARCHAR}
 		</where>
 	</select>
 	
-	<insert id="save" parameterType="com.thirdblock.migo.core.bo.User" keyProperty="id">
-		insert into tb_user (id, username, password, enabled) 
+	<insert id="save" parameterType="com.thirdblock.migo.core.bo.User" useGeneratedKeys="true" keyProperty="id">
+		insert into tb_user (username, password, enabled, repository_id) 
 		values (
-			#{id, jdbcType=BIGINT}, 
 			#{username, jdbcType=VARCHAR},
 			md5(#{password, jdbcType=VARCHAR}),
-			#{enabled, jdbcType=BOOLEAN}
+			#{enabled, jdbcType=BOOLEAN},
+			#{repositoryId, jdbcType=BIGINT}
 		) 
 	</insert>
 

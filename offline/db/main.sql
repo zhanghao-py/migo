@@ -60,6 +60,7 @@ CREATE TABLE `tb_user` (
   `username` varchar(50) NOT NULL,
   `password` varchar(50) NOT NULL,
   `enabled` tinyint(3) NOT NULL,
+  `repository_id` bigint(20) NOT NULL COMMENT '用户组id',
   PRIMARY KEY (`id`)
 ) ENGINE=InnoDB AUTO_INCREMENT=7 DEFAULT CHARSET=utf8;
 

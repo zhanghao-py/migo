@@ -12,12 +12,15 @@ public class User implements Serializable {
 	private String username;
 	private String password;
 	private Boolean enabled;
+	private Long repositoryId;
 	
 	public User() {}
 	
 	public User(UserCreateForm form) {
 		this.username = form.getUsername();
+		this.password = form.getPassword();
 		this.enabled = Boolean.TRUE;
+		this.repositoryId = form.getRepositoryId();
 	}
 
 	public Long getId() {
@@ -50,6 +53,14 @@ public class User implements Serializable {
 	
 	public void setEnabled(Boolean enabled) {
 		this.enabled = enabled;
+	}
+
+	public Long getRepositoryId() {
+		return repositoryId;
+	}
+
+	public void setRepositoryId(Long repositoryId) {
+		this.repositoryId = repositoryId;
 	}
 	
 }

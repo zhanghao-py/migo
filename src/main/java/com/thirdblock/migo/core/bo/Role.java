@@ -10,6 +10,8 @@ public class Role implements Serializable {
 		ROLE_USER
 	}
 	*/
+	public static final String ROLE_AMDIN = "ROLE_ADMIN";
+	public static final String ROLE_USER = "ROLE_USER";
 	
 	private static final long serialVersionUID = 2619123694997850172L;
 	

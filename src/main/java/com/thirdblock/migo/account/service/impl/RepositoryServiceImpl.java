@@ -56,6 +56,7 @@ public class RepositoryServiceImpl implements RepositoryService {
 		PageBean<Repository> page = new PageBean<Repository>();
 		page.setPageSize(form.getPageSize());
 		page.setCurrentPage(form.getCurrentPage());
+		page.setPage(form.isPage());
 		
 		List<Repository> repositories = repositoryDao.searchRepositories(form, page);
 		

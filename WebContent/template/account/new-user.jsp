@@ -62,59 +62,29 @@
                 <!-- left column -->
                 <div class="col-md-9 with-sidebar">
                     <div class="container">
-                        <form class="new_user_form">
+                        <form id="new-user-form" class="new_user_form" action="account/user" method="POST">
                             <div class="col-md-12 field-box">
-                                <label>Name:</label>
-                                <input class="form-control" type="text" />
+                                <label>用户名:</label>
+                                <input name="username" class="form-control" type="text" value="${username}" disabled/>
                             </div>
                             <div class="col-md-12 field-box">
-                                <label>State:</label>
+                                <label>密码:</label>
+                                <input name="password" class="col-md-9 form-control" type="text" value="000000" disabled/>
+                            </div>
+                            <div class="col-md-12 field-box">
+                                <label>用户组:</label>
                                 <div class="ui-select span5">
-                                    <select>
-                                        <option value="AK">Alaska</option>
-                                        <option value="HI">Hawaii</option>
-                                        <option value="CA">California</option>
-                                        <option value="NV">Nevada</option>
-                                        <option value="OR">Oregon</option>
-                                        <option value="WA">Washington</option>
-                                        <option value="AZ">Arizona</option>
+                                    <select name="repositoryId">
+                                        <c:forEach items="${repositories}" var="repository">
+                                            <option value="${repository.id}">${repository.name}</option>
+                                        </c:forEach> 
                                     </select>
                                 </div>
                             </div>
-                            <div class="col-md-12 field-box">
-                                <label>Company:</label>
-                                <input class="col-md-9 form-control" type="text" />
-                            </div>
-                            <div class="col-md-12 field-box">
-                                <label>Email:</label>
-                                <input class="col-md-9 form-control" type="text" />
-                            </div>
-                            <div class="col-md-12 field-box">
-                                <label>Phone:</label>
-                                <input class="col-md-9 form-control" type="text" />
-                            </div>
-                            <div class="col-md-12 field-box">
-                                <label>Website:</label>
-                                <input class="col-md-9 form-control" type="text" />
-                            </div>
-                            <div class="col-md-12 field-box">
-                                <label>Address:</label>
-                                <div class="address-fields">
-                                    <input class="form-control" type="text" placeholder="Street address" />
-                                    <input class="small form-control" type="text" placeholder="City" />
-                                    <input class="small form-control" type="text" placeholder="State" />
-                                    <input class="small last form-control" type="text" placeholder="Postal Code" />
-                                </div>
-                            </div>
-                            <div class="col-md-12 field-box textarea">
-                                <label>Notes:</label>
-                                <textarea class="col-md-9"></textarea>
-                                <span class="charactersleft">90 characters remaining. Field limited to 100 characters</span>
-                            </div>
                             <div class="col-md-11 field-box actions">
-                                <input type="button" class="btn-glow primary" value="Create user">
+                                <input type="button" class="btn-glow primary" id="new-user-btn" value="创建">
                                 <span>OR</span>
-                                <input type="reset" value="Cancel" class="reset">
+                                <input type="reset" value="取消" class="reset">
                             </div>
                         </form>
                     </div>
@@ -122,10 +92,6 @@
 
                 <!-- side right column -->
                 <div class="col-md-3 form-sidebar pull-right">
-                    <div class="btn-group toggle-inputs hidden-tablet">
-                        <button class="glow left active" data-input="normal">NORMAL INPUTS</button>
-                        <button class="glow right" data-input="inline">INLINE INPUTS</button>
-                    </div>
                     <div class="alert alert-info hidden-tablet">
                         <i class="icon-lightbulb pull-left"></i>
                         Click above to see difference between inline and normal inputs on a form
@@ -148,21 +114,32 @@
     <script type="text/javascript">
         $(function () {
 
-            // toggle form between inline and normal inputs
-            var $buttons = $(".toggle-inputs button");
-            var $form = $("form.new_user_form");
+            $("#new-user-btn").click(function() {
 
-            $buttons.click(function () {
-                var mode = $(this).data("input");
-                $buttons.removeClass("active");
-                $(this).addClass("active");
+                var username = $("input[name=username]").val();
+                var password = $("input[name=password]").val();
+                var repositoryId = $("select[name=repositoryId] option:selected").val();
 
-                if (mode === "inline") {
-                    $form.addClass("inline-input");
-                } else {
-                    $form.removeClass("inline-input");
-                }
+                var url = $("#new-user-form").attr('action');
+                var method = $("#new-user-form").attr('method');
+
+                $.ajax({
+                    type: method,
+                    url: url,
+                    dataType: 'json',
+                    data: {username: username, password: password, repositoryId: repositoryId},
+                    success: function(data, textStatus, jqXHR){
+                        console.log(data.statusInfo);
+                        alert(data.statusInfo);
+                    } 
+                });
+
+
+                //console.log(username + "," + password + "," + repositoryId);
+
             });
+
+            
         });
     </script>
 </body>

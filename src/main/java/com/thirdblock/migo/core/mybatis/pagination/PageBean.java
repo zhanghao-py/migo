@@ -21,6 +21,8 @@ public class PageBean<E> {
 	
 	private List<E> data;
 	
+	private boolean isPage = true;
+	
 	public PageBean() {}
 	
 	public PageBean(int pageSize) {
@@ -137,4 +139,12 @@ public class PageBean<E> {
 		this.data = data;
 	}
 
+	public boolean isPage() {
+		return isPage;
+	}
+
+	public void setPage(boolean isPage) {
+		this.isPage = isPage;
+	}
+	
 }
