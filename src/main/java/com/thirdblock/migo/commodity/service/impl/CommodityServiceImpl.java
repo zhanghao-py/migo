@@ -4,16 +4,20 @@ import java.math.BigDecimal;
 import java.util.Date;
 import java.util.List;
 
+import org.apache.commons.lang.ArrayUtils;
 import org.apache.commons.lang.ObjectUtils;
 import org.apache.commons.lang.StringUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 
 import com.thirdblock.migo.commodity.dao.CommodityDao;
+import com.thirdblock.migo.commodity.dao.CommodityImgDao;
 import com.thirdblock.migo.commodity.service.CommodityService;
 import com.thirdblock.migo.commodity.web.action.dto.CommodityCreateForm;
 import com.thirdblock.migo.commodity.web.action.dto.CommoditySearchForm;
 import com.thirdblock.migo.core.bo.Commodity;
+import com.thirdblock.migo.core.bo.CommodityImg;
+import com.thirdblock.migo.core.config.SystemConfig;
 import com.thirdblock.migo.core.excep.ServiceException;
 import com.thirdblock.migo.core.mybatis.pagination.PageBean;
 import com.thirdblock.migo.core.web.action.dto.Visitor;
@@ -23,6 +27,10 @@ public class CommodityServiceImpl implements CommodityService {
 
 	@Autowired
 	private CommodityDao commodityDao;
+	@Autowired
+	private CommodityImgDao commodityImgDao;
+	@Autowired
+	private SystemConfig config;
 	
 	@Override
 	public void saveOrUpdateCommodity(CommodityCreateForm form, Visitor visitor) throws ServiceException {
@@ -33,12 +41,16 @@ public class CommodityServiceImpl implements CommodityService {
 		
 		if (ObjectUtils.notEqual(form.getId(), null) && form.getId() > 0L) {
 			commodity.setId(form.getId());
-			commodity.setCreateTime(new Date());
+			commodity.setUpdateTime(new Date());
 			commodityDao.update(commodity);
+			commodityImgDao.deleteByCommodityId(commodity.getId());
 		} else {
 			commodity.setCreateTime(new Date());
 			commodityDao.save(commodity);
 		}
+		
+		List<CommodityImg> commodityImgs = CommodityImg.createCommodityImgs(form.getFileNames(), config.getImageDirectoryPath(), commodity.getId());
+		commodityImgDao.saveBatch(commodityImgs);
 		
 		return;
 	}
@@ -65,8 +77,8 @@ public class CommodityServiceImpl implements CommodityService {
 			throw new ServiceException("参考价不能为空, 不能小于一元钱！");
 		}
 		
-		if (StringUtils.isBlank(form.getDetail())) {
-			throw new ServiceException("商品详细信息不能为空！");
+		if ( ArrayUtils.isEmpty(form.getFileNames()) ) {
+			throw new ServiceException("商品图片信息不能为空！");
 		}
 		
 		return;

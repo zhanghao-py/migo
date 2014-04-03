@@ -30,7 +30,7 @@ public class Commodity implements Serializable {
 		this.categoryId = form.getCategoryId();
 		this.price = form.getPrice();
 		this.originalPrice = form.getOriginalPrice();
-		this.detail = form.getDetail();
+//		this.detail = form.getDetail();
 	}
 
 	public Long getId() {

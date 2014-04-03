@@ -1,0 +1,31 @@
+<?xml version="1.0" encoding="UTF-8" ?>   
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.thirdblock.migo.commodity.dao.CommodityImgDao">
+
+	<resultMap type="com.thirdblock.migo.core.bo.CommodityImg" id="commodityImgResultMap">
+		<id column="id" property="id" jdbcType="BIGINT" />
+		<result column="url" property="url" jdbcType="VARCHAR" />
+		<result column="commodity_id" property="commodityId" jdbcType="BIGINT" />
+	</resultMap>
+
+	<insert id="saveBatch" useGeneratedKeys="true">
+		insert into tb_commodity_img (url, commodity_id)
+		values
+		<foreach collection="list" item="item" separator=",">
+			(
+			#{item.url, jdbcType=VARCHAR},
+			#{item.commodityId, jdbcType=BIGINT}
+			)
+		</foreach>
+	</insert>
+	
+	<delete id="deleteByCommodityId" parameterType="java.lang.Long">
+		delete tb_commodity_img
+		<where> 
+			commodity_id = #{commodityId, jdbcType=BIGINT}
+		</where>
+	</delete>
+
+
+</mapper>
+

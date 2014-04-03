@@ -2,15 +2,14 @@ package com.thirdblock.migo.core.config;
 
 public class SystemConfig {
 
-	private String auidoDirectoryPath;
+	private String imageDirectoryPath;
 
-	public String getAuidoDirectoryPath() {
-		return auidoDirectoryPath;
+	public String getImageDirectoryPath() {
+		return imageDirectoryPath;
 	}
 
-	public void setAuidoDirectoryPath(String auidoDirectoryPath) {
-		this.auidoDirectoryPath = auidoDirectoryPath;
+	public void setImageDirectoryPath(String imageDirectoryPath) {
+		this.imageDirectoryPath = imageDirectoryPath;
 	}
 
-	
 }

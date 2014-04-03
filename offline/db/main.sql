@@ -123,6 +123,13 @@ CREATE TABLE `tb_commodity` (
   PRIMARY KEY (`id`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8 COMMENT='商品表';
 
+DROP TABLE IF EXISTS `tb_commodity_img`;
+CREATE TABLE `tb_commodity_img` (
+  `id` bigint(20) NOT NULL AUTO_INCREMENT COMMENT '主键id',
+  `url` varchar(255) NOT NULL COMMENT 'url',
+  `commodity_id` bigint(20) NULL COMMENT '商品id',
+  PRIMARY KEY (`id`)
+) ENGINE=InnoDB DEFAULT CHARSET=utf8 COMMENT='商品图片关联表';
 
 DROP TABLE IF EXISTS `tb_repository`;
 CREATE TABLE `tb_repository` (

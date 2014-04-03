@@ -14,12 +14,12 @@
 	<title>Detail Admin - 首页</title>
     <meta http-equiv="Content-Type" content="text/html; charset=utf-8">
 	<meta name="viewport" content="width=device-width, initial-scale=1.0">
-
-    <link href="lib/google-code-prettify/prettify.css" rel="stylesheet">
 	
     <!-- bootstrap -->
     <link href="css/bootstrap/bootstrap.css" rel="stylesheet">
     <link href="css/bootstrap/bootstrap-overrides.css" type="text/css" rel="stylesheet">
+
+    <link href="css/lib/jquery.fileupload.css" type="text/css" rel="stylesheet">
 
     <!-- global styles -->
     <link rel="stylesheet" type="text/css" href="css/compiled/layout.css">
@@ -79,20 +79,20 @@
                 <!-- left column -->
                 <div class="col-md-9 with-sidebar">
                     <div class="container">
-                        <form class="new_user_form">
+                        <form id="new-commodity-form" class="new_user_form" action="commodity" method="POST">
                             <div class="col-md-12 field-box">
                                 <label>商品名称:</label>
-                                <input class="form-control" type="text" />
+                                <input class="form-control" name="name" type="text" />
                             </div>
                             <div class="col-md-12 field-box">
                                 <label>商品摘要:</label>
-                                <input class="form-control" type="text" />
+                                <input class="form-control" name="description" type="text" />
                             </div>
                             <div class="col-md-12 field-box">
                                 <label>所属分类:</label>
                                 <div class="input-group">
                                     <input type="hidden" name="categoryId" value="0" />
-                                    <input class="form-control" name="categoryName" type="text" value="请选择.." disabled>
+                                    <input class="form-control" name="categoryName" type="text" value="请选择.." disabled />
                                     <button type="button" class="btn btn-primary" data-toggle="modal" data-target="#categorySelector">选择</button>
                                 </div>
                             </div>
@@ -100,82 +100,67 @@
                                 <label>会员价:</label>
                                 <div class="input-group">
                                     <span class="input-group-addon">￥</span>
-                                    <input type="text" class="form-control" />
+                                    <input type="text" name="price" class="form-control" onkeyup="value=this.value.replace(/[^0-9|.]+/g,'')" />
                                 </div>
                             </div>
                             <div class="col-md-12 field-box">
                                 <label>参考价:</label>
                                 <div class="input-group">
                                     <span class="input-group-addon">￥</span>
-                                    <input type="text" class="form-control" />
+                                    <input type="text" name="originalPrice" class="form-control" onkeyup="value=this.value.replace(/[^0-9|.]+/g,'')" />
                                 </div>
                             </div>
-                            <div class="col-md-12 field-box textarea">
-                                <label>详细信息:</label>
+
+                            <div class="col-md-12 field-box">
+
+                                <label>上传图片:</label>
                                 <div class="input-group">
-                                    <div class="btn-toolbar" data-role="editor-toolbar" data-target="#editor">
-                                        <div class="btn-group">
-                                            <a class="btn btn-default dropdown-toggle" data-toggle="dropdown" title="Font"><i class="icon-font"></i><b class="caret"></b></a>
-                                            <ul class="dropdown-menu">
-                                            </ul>
-                                        </div>
-
-                                        <div class="btn-group">
-                                            <a class="btn btn-default dropdown-toggle" data-toggle="dropdown" title="Font Size"><i class="icon-text-height"></i>&nbsp;<b class="caret"></b></a>
-                                            <ul class="dropdown-menu">
-                                                <li><a data-edit="fontSize 5"><font size="5">Huge</font></a></li>
-                                                <li><a data-edit="fontSize 3"><font size="3">Normal</font></a></li>
-                                                <li><a data-edit="fontSize 1"><font size="1">Small</font></a></li>
-                                            </ul>
-                                        </div>
-
-                                        <div class="btn-group">
-                                            <a class="btn btn-default" data-edit="bold" title="Bold (Ctrl/Cmd+B)"><i class="icon-bold"></i></a>
-                                            <a class="btn btn-default" data-edit="italic" title="Italic (Ctrl/Cmd+I)"><i class="icon-italic"></i></a>
-                                            <a class="btn btn-default" data-edit="strikethrough" title="Strikethrough"><i class="icon-strikethrough"></i></a>
-                                            <a class="btn btn-default" data-edit="underline" title="Underline (Ctrl/Cmd+U)"><i class="icon-underline"></i></a>
-                                        </div>
-
-                                        <div class="btn-group">
-                                            <a class="btn btn-default" data-edit="justifyleft" title="Align Left (Ctrl/Cmd+L)"><i class="icon-align-left"></i></a>
-                                            <a class="btn btn-default" data-edit="justifycenter" title="Center (Ctrl/Cmd+E)"><i class="icon-align-center"></i></a>
-                                            <a class="btn btn-default" data-edit="justifyright" title="Align Right (Ctrl/Cmd+R)"><i class="icon-align-right"></i></a>
-                                            <a class="btn btn-default" data-edit="justifyfull" title="Justify (Ctrl/Cmd+J)"><i class="icon-align-justify"></i></a>
-                                        </div>
-
-
-                                        <!--
-                                        <div class="btn-group">
-                                            <a class="btn btn-default dropdown-toggle" data-toggle="dropdown" title="Hyperlink"><i class="icon-link"></i></a>
-                                            <div class="dropdown-menu input-append">
-                                                <input class="span2" placeholder="URL" type="text" data-edit="createLink"/>
-                                                <button class="btn btn-default" type="button">Add</button>
-                                            </div>
-                                            <a class="btn btn-default" data-edit="unlink" title="Remove Hyperlink"><i class="icon-cut"></i></a>
-                                        </div>
-                                        -->
-                                                      
-                                        <div class="btn-group">
-                                            <a class="btn btn-default" title="Insert picture (or just drag & drop)" id="pictureBtn"><i class="icon-picture"></i></a>
-                                            <input type="file" data-role="magic-overlay" data-target="#pictureBtn" data-edit="insertImage" />
-                                        </div>
-
-                                    </div>
-
-                                    <div id="editor">
-                                        Go ahead&hellip;
-                                    </div>
-                                    <span class="charactersleft">90 characters remaining. Field limited to 100 characters</span>
+                                    <span class="btn btn-success fileinput-button">
+                                        <i class="glyphicon glyphicon-plus"></i>
+                                        <span>Add files...</span>
+                                        <input id="fileupload" type="file" name="files[]" data-url="common/upload" multiple>
+                                    </span>
                                 </div>
-                                <!--
-                                <textarea class="col-md-9"></textarea>
-                                <span class="charactersleft">90 characters remaining. Field limited to 100 characters</span>
-                                -->
+
                             </div>
+
+                            <div class="col-md-12 field-box">
+
+                                <div id="progress" class="progress">
+                                    <div class="progress-bar progress-bar-success bar"></div>
+                                </div>
+
+                                <div>
+                                    <table class="table table-hover" id="uploaded-files">
+                                        <thead>
+                                            <tr>
+                                                <th class="col-md-3">
+                                                    File Name
+                                                </th>
+                                                <th class="col-md-3">
+                                                    <span class="line"></span>File Size
+                                                </th>
+                                                <th class="col-md-3">
+                                                    <span class="line"></span>File Type
+                                                </th>
+                                                <th class="col-md-3">
+                                                    <span class="line"></span>Download
+                                                </th>
+                                            </tr>
+                                        </thead>
+                                        <tbody>
+                                            <!-- row -->
+                                        </tbody>
+                                    </table>
+                                </div>
+
+                            </div>
+
+
                             <div class="col-md-11 field-box actions">
-                                <input type="button" class="btn-glow primary" value="Create user">
+                                <input type="button" class="btn-glow primary" id="createCommodity-btn" value="创建">
                                 <span>OR</span>
-                                <input type="reset" value="Cancel" class="reset">
+                                <input type="reset" value="取消" class="reset">
                             </div>
                         </form>
                     </div>
@@ -206,8 +191,15 @@
 
                                 <div style="overflow-y: scroll; overflow-x: hidden; height: 300px;">
 
+                                    <ul class="nav nav-list">
+                                        <c:import url="../category/recursive.jsp"></c:import>
+                                    </ul>
+
+
+<!--
                             <ul class="nav nav-list">
-                                <li><label class="tree-toggler nav-header">Header 1</label>
+                                <li>
+                                    <label class="tree-toggler nav-header">Header 1</label>
                                     <ul class="nav nav-list tree">
                                         <li><a><span>Link1</span><input type="hidden" value="1"/></a></li>
                                         <li><a><span>Link2</span><input type="hidden" value="2"/></a></li>
@@ -256,7 +248,7 @@
                                     </ul>
                                 </li>
                             </ul>
-
+-->
                                 </div>
 
                             </div>
@@ -276,95 +268,127 @@
 
 	<!-- scripts -->
     <script src="lib/jquery-1.10.2.min.js"></script>
-    <script src="lib/jquery.hotkeys.js"></script>
+    <script src="lib/jquery.ui.widget.js"></script>
+    <script src="lib/jquery.iframe-transport.js"></script>
+    <script src="lib/jquery.fileupload.js"></script>
     <script src="lib/bootstrap.min.js"></script>
-    <script src="lib/google-code-prettify/prettify.js"></script>
-    <script src="lib/bootstrap-wysiwyg.js"></script>
     <script src="lib/theme.js"></script>
+    <script src="lib/utils.js"></script>
 
     <script type="text/javascript">
-        function initToolbarBootstrapBindings() {
-          var fonts = ['Serif', 'Sans', 'Arial', 'Arial Black', 'Courier', 
-                'Courier New', 'Comic Sans MS', 'Helvetica', 'Impact', 'Lucida Grande', 'Lucida Sans', 'Tahoma', 'Times',
-                'Times New Roman', 'Verdana'],
-                fontTarget = $('[title=Font]').siblings('.dropdown-menu');
-          $.each(fonts, function (idx, fontName) {
-              fontTarget.append($('<li><a data-edit="fontName ' + fontName +'" style="font-family:\''+ fontName +'\'">'+fontName + '</a></li>'));
-          });
-          $('a[title]').tooltip({container:'body'});
-            $('.dropdown-menu input').click(function() {return false;})
-                .change(function () {$(this).parent('.dropdown-menu').siblings('.dropdown-toggle').dropdown('toggle');})
-            .keydown('esc', function () {this.value='';$(this).change();});
 
-          $('[data-role=magic-overlay]').each(function () { 
-            var overlay = $(this), target = $(overlay.data('target')); 
-            overlay.css('opacity', 0).css('position', 'absolute').offset(target.offset()).width(target.outerWidth()).height(target.outerHeight());
-          });
-        };
-
-        function showErrorAlert (reason, detail) {
-            var msg='';
-            if (reason==='unsupported-file-type') { msg = "Unsupported format " +detail; }
-            else {
-                console.log("error uploading file", reason, detail);
-            }
-            $('<div class="alert"> <button type="button" class="close" data-dismiss="alert">&times;</button>'+ 
-             '<strong>File upload error</strong> '+msg+' </div>').prependTo('#alerts');
-        };
 
         $(document).ready(function(){
-
-            // toggle form between inline and normal inputs
-            var $buttons = $(".toggle-inputs button");
-            var $form = $("form.new_user_form");
-
-            $buttons.click(function () {
-                var mode = $(this).data("input");
-                $buttons.removeClass("active");
-                $(this).addClass("active");
-
-                if (mode === "inline") {
-                    $form.addClass("inline-input");
-                } else {
-                    $form.removeClass("inline-input");
-                }
-            });
-
-            initToolbarBootstrapBindings();
-
-            $('#editor').wysiwyg({ fileUploadError: showErrorAlert} );
-            window.prettyPrint && prettyPrint();
 
             $('label.tree-toggler').click(function () {
                 $(this).parent().children('ul.tree').toggle(300);
             });
 
-            $('ul > li > a').click(function () {
+            $('#categorySelector').find('ul > li > a').click(function () {
                 var children = $(this);
 
-                $('ul > li > a > span').removeClass("badge").removeClass("badge-success");
+                $('#categorySelector').find('ul > li > a > span').removeClass("badge").removeClass("badge-success");
 
                 var span = children.find("span").first();
                 span.addClass("badge").addClass("badge-success");
                 
-                // var input = children.find("input").first();
-                // console.log(input.val());
             });
 
-            $("#categoryConfirm-btn").click(function() {
+            $('#categoryConfirm-btn').click(function() {
                 
                 var categorySelected = $('ul > li > a .badge-success');
                 var categoryName = categorySelected.text();
                 var categoryId = categorySelected.parent().find("input").first().val();
-                
-                console.log(categoryName + "," + categoryId);
 
                 $('input[name=categoryName]').val(categoryName);
                 $('input[name=categoryId]').val(categoryId);
 
                 $('#categorySelector').modal('hide');
             });
+
+            $('#fileupload').fileupload({
+                dataType: 'json',
+                acceptFileTypes: /(\.|\/)(gif|jpe?g|png)$/i,
+                maxFileSize: 5000000, // 5 MB
+         
+                done: function (e, data) {
+                    
+                    $("tr:has(td)").remove();
+
+                    $.each(data.result, function (index, file) {
+         
+                        $("#uploaded-files tbody").append(
+                            $('<tr/>')
+                                .append($('<td/>').text(file.fileName))
+                                .append($('<td/>').text(file.fileSize))
+                                .append($('<td/>').text(file.fileType))
+                                .append($('<td/>').html("<span class='preview'><img src=" + file.fileThumbUrl + "></span><input type='hidden' name='fileNames[]' value=" + file.fileThumbUrl + " />"))
+                        )
+                    });
+                },
+         
+                progressall: function (e, data) {
+                    var progress = parseInt(data.loaded / data.total * 100, 10);
+                    $('#progress .bar').css('width', progress + '%');
+                },
+         
+            });
+
+            $('#createCommodity-btn').click(createCommodiySubmit);
+
+
         });
+
+
+        function createCommodiySubmit() {
+            var name = $("input[name=name]").val() || '';
+            var description = $("input[name=description]").val() || '';
+            var categoryId = $('input[name=categoryId]').val() || '';
+            var price = $("input[name=price]").val() || '';
+            var originalPrice = $("input[name=originalPrice]").val() || '';
+
+            
+            var fileNames = "";
+            var items = $("input[name='fileNames[]']");
+            items.each(function(index, element) {
+                fileNames = (fileNames + element.value) + (((index + 1)== items.length) ? '':','); 
+
+            });
+
+            if (!isNotBlank(name) || !isNotBlank(description) || !isNotBlank(categoryId) || !isNotBlank(price) || !isNotBlank(originalPrice) || !isNotBlank(fileNames)) {
+                alert("请将商品信息补充完整！");
+                return;
+            }
+
+            if ( !isMoney(price) ) {
+                alert("会员价格式为10.00！");
+                return;
+            }
+
+            if ( !isMoney(originalPrice) ) {
+                alert("参考价格式为10.00！");
+                return;
+            }
+
+
+            var url = $("#new-commodity-form").attr('action') || '';
+            var method = $("#new-commodity-form").attr('method') || '';
+
+
+
+
+            $.ajax({
+                type: method,
+                url: url,
+                dataType: 'json',
+                data: {name: name, description: description, categoryId: categoryId, price: price, originalPrice: originalPrice, fileNames: fileNames},
+                success: function(data, textStatus, jqXHR){
+                    console.log(data.statusInfo);
+                    alert(data.statusInfo);
+                }
+            });
+
+        }
     </script>
 </body>
 </html>

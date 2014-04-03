@@ -10,7 +10,7 @@ public class CommodityCreateForm {
 	private Long categoryId;
 	private BigDecimal originalPrice;
 	private BigDecimal price;
-	private String detail;
+	private String[] fileNames;
 
 	public Long getId() {
 		return id;
@@ -60,12 +60,12 @@ public class CommodityCreateForm {
 		this.price = price;
 	}
 
-	public String getDetail() {
-		return detail;
+	public String[] getFileNames() {
+		return fileNames;
 	}
 
-	public void setDetail(String detail) {
-		this.detail = detail;
+	public void setFileNames(String[] fileNames) {
+		this.fileNames = fileNames;
 	}
 
 }

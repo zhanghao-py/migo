@@ -61,7 +61,7 @@ public class PaginationInterceptor implements Interceptor {
 		if (parameterObject instanceof Map) {
 			@SuppressWarnings("unchecked")
 			Map<String, Object> map = (Map<String, Object>) parameterObject;
-			p = map.get("page");
+			p = map.containsKey("page") ? map.get("page") : null;
 		}
 
 		if (p == null || !(p instanceof PageBean)) {

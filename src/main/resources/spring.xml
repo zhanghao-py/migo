@@ -26,8 +26,5 @@
 	<import resource="classpath:spring-dataSource.xml" />
 	<import resource="classpath:spring-config.xml" />
 	<import resource="classpath:spring-security.xml" />
-	<!-- 
-	<import resource="classpath:config/spring-cxf.xml" />
-	-->
 
 </beans>

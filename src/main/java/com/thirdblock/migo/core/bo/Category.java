@@ -4,7 +4,7 @@ import java.io.Serializable;
 
 public class Category implements Serializable{
 
-	public final static String ROOT = "ROOT";
+	public final static String ROOT = "分类树";
 	
 	private static final long serialVersionUID = 5621777900637529976L;
 	
