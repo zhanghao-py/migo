@@ -30,6 +30,7 @@
 
     <!-- this page specific styles -->
     <link rel="stylesheet" href="css/compiled/index.css" type="text/css" media="screen" />
+    <link rel="stylesheet" href="css/common/pagination.css" type="text/css" />
 
     <!-- open sans font -->
     <link href='http://fonts.googleapis.com/css?family=Open+Sans:300italic,400italic,600italic,700italic,800italic,400,300,600,700,800' rel='stylesheet' type='text/css'>
@@ -61,12 +62,13 @@
             <div class="table-products">
                 <div class="row head">
                     <div class="col-md-12">
-                        <h4>Products <small>Table sample</small></h4>
+                        <h4>商品列表</h4>
                     </div>
                 </div>
 
                 <div class="row filter-block">
                     <div class="col-md-8 col-md-offset-5">
+                        <form action="commodity/search" method="POST" id="commodity-search-form">
                         <div class="ui-select">
                             <select>
                               <option>Filter users</option>
@@ -75,7 +77,9 @@
                             </select>
                         </div>
                         <input type="text" class="search">
-                        <a class="btn-flat new-product" href="commodity/create">+ Add product</a>
+                        <a class="btn-flat new-product" href="commodity/create">确定</a>
+                        </form>
+                        
                     </div>
                 </div>
 
@@ -83,30 +87,45 @@
                     <table class="table table-hover">
                         <thead>
                             <tr>
-                                <th class="col-md-3">
+                                <th class="col-md-2">
                                     <input type="checkbox">
-                                    Product
+                                    名称
                                 </th>
-                                <th class="col-md-3">
-                                    <span class="line"></span>Description
+                                <th class="col-md-2">
+                                    <span class="line"></span>会员价
                                 </th>
-                                <th class="col-md-3">
-                                    <span class="line"></span>Status
+                                <th class="col-md-2">
+                                    <span class="line"></span>参考价
+                                </th>
+                                <th class="col-md-2">
+                                    <span class="line"></span>描述
+                                </th>
+                                <th class="col-md-2">
+                                    <span class="line"></span>分类
+                                </th>
+                                <th class="col-md-2">
+                                    <span class="line"></span>操作
                                 </th>
                             </tr>
                         </thead>
-                        <tbody>
+                        <tbody id="datas">
                             <!-- row -->
-                            <tr class="first">
+                            <tr id="template" class="tpl" style="display:none;">
                                 <td>
                                     <input type="checkbox">
-                                    <div class="img">
-                                        <img src="img/table-img.png">
-                                    </div>
-                                    <a href="#">There are many variations </a>
+                                    <span id="name"></span>
                                 </td>
-                                <td class="description">
-                                    if you are going to use a passage of Lorem Ipsum.
+                                <td>
+                                    <span id="price"></span>
+                                </td>
+                                <td>
+                                    <span id="originalPrice"></span>
+                                </td>
+                                <td>
+                                    <span id="description"></span>
+                                </td>
+                                <td>
+                                    <span id="categoryName"></span>
                                 </td>
                                 <td>
                                     <span class="label label-success">Active</span>
@@ -117,98 +136,11 @@
                                     </ul>
                                 </td>
                             </tr>
-                            <!-- row -->
-                            <tr>
-                                <td>
-                                    <input type="checkbox">
-                                    <div class="img">
-                                        <img src="img/table-img.png">
-                                    </div>
-                                    <a href="#">Internet tend</a>
-                                </td>
-                                <td class="description">
-                                    There are many variations of passages.
-                                </td>
-                                <td>
-                                    <ul class="actions">
-                                        <li><i class="table-edit"></i></span></li>
-                                        <li><i class="table-settings"></i></li>
-                                        <li class="last"><i class="table-delete"></i></li>
-                                    </ul>
-                                </td>
-                            </tr>
-                            <!-- row -->
-                            <tr>
-                                <td>
-                                    <input type="checkbox">
-                                    <div class="img">
-                                        <img src="img/table-img.png">
-                                    </div>
-                                    <a href="#">Many desktop publishing </a>
-                                </td>
-                                <td class="description">
-                                    if you are going to use a passage of Lorem Ipsum.
-                                </td>
-                                <td>
-                                    <ul class="actions">
-                                        <li><i class="table-edit"></i></span></li>
-                                        <li><i class="table-settings"></i></li>
-                                        <li class="last"><i class="table-delete"></i></li>
-                                    </ul>
-                                </td>
-                            </tr>
-                            <!-- row -->
-                            <tr>
-                                <td>
-                                    <input type="checkbox">
-                                    <div class="img">
-                                        <img src="img/table-img.png">
-                                    </div>
-                                    <a href="#">Generate Lorem </a>
-                                </td>
-                                <td class="description">
-                                    There are many variations of passages.
-                                </td>
-                                <td>
-                                    <span class="label label-info">Standby</span>
-                                    <ul class="actions">
-                                        <li><i class="table-edit"></i></span></li>
-                                        <li><i class="table-settings"></i></li>
-                                        <li class="last"><i class="table-delete"></i></li>
-                                    </ul>
-                                </td>
-                            </tr>
-                            <!-- row -->
-                            <tr>
-                                <td>
-                                    <input type="checkbox">
-                                    <div class="img">
-                                        <img src="img/table-img.png">
-                                    </div>
-                                    <a href="#">Internet tend</a>
-                                </td>
-                                <td class="description">
-                                    There are many variations of passages.
-                                </td>
-                                <td>                                        
-                                    <ul class="actions">
-                                        <li><i class="table-edit"></i></span></li>
-                                        <li><i class="table-settings"></i></li>
-                                        <li class="last"><i class="table-delete"></i></li>
-                                    </ul>
-                                </td>
-                            </tr>
+
                         </tbody>
                     </table>
                 </div>
-                <ul class="pagination">
-                    <li><a href="#">&laquo;</a></li>
-                    <li class="active"><a href="#">1</a></li>
-                    <li><a href="#">2</a></li>
-                    <li><a href="#">3</a></li>
-                    <li><a href="#">4</a></li>
-                    <li><a href="#">&raquo;</a></li>
-                </ul>
+                <div id="pager"></div>
             </div>
             <!-- end table sample -->
         </div>
@@ -219,12 +151,80 @@
     <script src="lib/jquery-1.10.2.min.js"></script>
     <script src="lib/bootstrap.min.js"></script>
     <script src="lib/theme.js"></script>
+    <script src="lib/bootstrap-paginator.min.js"></script>
 
     <script type="text/javascript">
         $(document).ready(function(){
 
+            var pageSize = 10;
+            var page = 1;
+            searchCommodities(page, pageSize);
 
         });
+
+        function initialPager(currentPage, pageSize, totalPage) {
+            var options = {
+                currentPage: currentPage,
+                numberOfPages: pageSize,
+                totalPages: totalPage,
+                onPageClicked: function(e, originalEvent, type, page){
+                    searchUsers(page, pageSize);
+                }
+            }
+
+            $('#pager').bootstrapPaginator(options);
+            $('#pager').addClass("pull-right");
+        }
+
+        function searchCommodities(currentPage, pageSize) {
+
+            var url = $("#commodity-search-form").attr('action');
+            var method = $("#commodity-search-form").attr('method');
+
+            $.ajax({
+                type: method,
+                url: url,
+                dataType: 'json',
+                data: {currentPage: currentPage, pageSize: pageSize},
+                success: function(data, textStatus, jqXHR){
+
+                    var status = data.status;
+                    var statusInfo = data.statusInfo;
+                    
+
+                    if (status) {
+                        alert("出错啦，" + statusInfo);
+                        return;
+                    }
+
+                    var data = data.data;
+                    $(".tpl:not(:first)").remove();
+                    $.each(data.data, function(i, e) {
+                        
+                        var row = $("#template").clone();
+
+                        //e.id;
+                        row.find("#name").text(e.name);
+                        row.find("#price").text(e.price);
+                        row.find("#originalPrice").text(e.originalPrice);
+                        row.find("#description").text(e.description);
+                        row.find("#categoryName").text(e.categoryName);
+
+
+                        row.removeAttr("style");
+                        row.appendTo("#datas");
+
+                    });
+
+                    
+                    var pageSize = data.pageSize;
+                    var totalPage = data.totalPage;
+                    initialPager(currentPage, pageSize, totalPage);
+
+                } 
+            });
+
+        }
     </script>
 </body>
 </html>

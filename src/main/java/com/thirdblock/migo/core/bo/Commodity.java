@@ -19,7 +19,7 @@ public class Commodity implements Serializable {
 	private String detail;
 	private Date createTime;
 	private Date updateTime;
-	private Long userId;
+	private Long respositoryId;
 	private Boolean isDelete;
 	
 	public Commodity() {}
@@ -105,20 +105,20 @@ public class Commodity implements Serializable {
 		this.updateTime = updateTime;
 	}
 
-	public Long getUserId() {
-		return userId;
-	}
-
-	public void setUserId(Long userId) {
-		this.userId = userId;
-	}
-
 	public Boolean getIsDelete() {
 		return isDelete;
 	}
 
 	public void setIsDelete(Boolean isDelete) {
 		this.isDelete = isDelete;
+	}
+
+	public Long getRespositoryId() {
+		return respositoryId;
+	}
+
+	public void setRespositoryId(Long respositoryId) {
+		this.respositoryId = respositoryId;
 	}
 	
 }

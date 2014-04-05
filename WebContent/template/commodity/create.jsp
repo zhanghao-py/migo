@@ -110,9 +110,7 @@
                                     <input type="text" name="originalPrice" class="form-control" onkeyup="value=this.value.replace(/[^0-9|.]+/g,'')" />
                                 </div>
                             </div>
-
                             <div class="col-md-12 field-box">
-
                                 <label>上传图片:</label>
                                 <div class="input-group">
                                     <span class="btn btn-success fileinput-button">
@@ -121,7 +119,6 @@
                                         <input id="fileupload" type="file" name="files[]" data-url="common/upload" multiple>
                                     </span>
                                 </div>
-
                             </div>
 
                             <div class="col-md-12 field-box">

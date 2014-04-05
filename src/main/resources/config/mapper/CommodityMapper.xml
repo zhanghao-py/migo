@@ -16,6 +16,15 @@
 		<result column="is_delete" property="isDelete" jdbcType="BOOLEAN" />
 	</resultMap>
 	
+	<resultMap type="com.thirdblock.migo.commodity.web.action.dto.SearchCommoditiesVO" id="searchCommoditiesResultMap">
+		<id column="id" property="id" jdbcType="BIGINT" />
+		<result column="name" property="name" jdbcType="VARCHAR" />
+		<result column="description" property="description" jdbcType="VARCHAR" />
+		<result column="category_name" property="categoryName" jdbcType="VARCHAR" />
+		<result column="price" property="price" jdbcType="DECIMAL" />
+		<result column="original_price" property="originalPrice" jdbcType="DECIMAL" />
+	</resultMap>
+	
 	<insert id="save" parameterType="com.thirdblock.migo.core.bo.Commodity" useGeneratedKeys="true" keyProperty="id">
 		insert into tb_commodity (name, description, category_id, original_price, price, detail, create_time, user_id) 
 		values (
@@ -76,6 +85,13 @@
 			id = #{id, jdbcType=BIGINT}
 		</where>
 	</update>
+	
+	<select id="searchCommodities" parameterType="com.thirdblock.migo.commodity.web.action.dto.CommoditySearchForm" resultMap="searchCommoditiesResultMap">
+		select co.id, co.name, co.description, ca.name category_name, co.price, co.original_price from tb_commodity co left join tb_category ca on co.category_id = ca.id 
+		<where> 
+			is_delete = 0 and respository_id = #{respositoryId, jdbcType=BIGINT}
+		</where>
+	</select>
 
 
 </mapper>

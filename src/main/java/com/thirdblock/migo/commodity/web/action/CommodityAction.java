@@ -10,6 +10,7 @@ import org.springframework.web.bind.annotation.ResponseBody;
 
 import com.thirdblock.migo.commodity.service.CommodityService;
 import com.thirdblock.migo.commodity.web.action.dto.CommodityCreateForm;
+import com.thirdblock.migo.commodity.web.action.dto.SearchCommoditiesVO;
 import com.thirdblock.migo.commodity.web.action.dto.CommoditySearchForm;
 import com.thirdblock.migo.core.bo.Commodity;
 import com.thirdblock.migo.core.excep.ServiceException;
@@ -100,7 +101,7 @@ public class CommodityAction extends BaseAction {
 	@ResponseBody
     public StatusInfo search(@ModelAttribute CommoditySearchForm form) {
 		
-		PageBean<Commodity> page = null;
+		PageBean<SearchCommoditiesVO> page = null;
 		try {
 			page = commodityService.searchCommodities(form, getVisitor());
 		} catch (ServiceException e) {

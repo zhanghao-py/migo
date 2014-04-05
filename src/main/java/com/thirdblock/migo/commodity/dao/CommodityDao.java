@@ -4,6 +4,7 @@ import java.util.List;
 
 import org.apache.ibatis.annotations.Param;
 
+import com.thirdblock.migo.commodity.web.action.dto.SearchCommoditiesVO;
 import com.thirdblock.migo.commodity.web.action.dto.CommoditySearchForm;
 import com.thirdblock.migo.core.bo.Commodity;
 import com.thirdblock.migo.core.mybatis.pagination.PageBean;
@@ -18,7 +19,7 @@ public interface CommodityDao {
 
 	void deleteById(Long id);
 
-	List<Commodity> searchCommodities(CommoditySearchForm form,
-			@Param("page") PageBean<Commodity> page);
+	List<SearchCommoditiesVO> searchCommodities(@Param("form") CommoditySearchForm form,
+			@Param("respositoryId") Long respositoryId, @Param("page") PageBean<SearchCommoditiesVO> page);
 
 }

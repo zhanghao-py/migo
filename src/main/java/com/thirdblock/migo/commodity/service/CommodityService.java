@@ -1,6 +1,7 @@
 package com.thirdblock.migo.commodity.service;
 
 import com.thirdblock.migo.commodity.web.action.dto.CommodityCreateForm;
+import com.thirdblock.migo.commodity.web.action.dto.SearchCommoditiesVO;
 import com.thirdblock.migo.commodity.web.action.dto.CommoditySearchForm;
 import com.thirdblock.migo.core.bo.Commodity;
 import com.thirdblock.migo.core.excep.ServiceException;
@@ -15,6 +16,6 @@ public interface CommodityService {
 
 	void deleteCommodityById(Long commodityId) throws ServiceException;
 
-	PageBean<Commodity> searchCommodities(CommoditySearchForm form, Visitor visitor) throws ServiceException;
+	PageBean<SearchCommoditiesVO> searchCommodities(CommoditySearchForm form, Visitor visitor) throws ServiceException;
 
 }

@@ -115,10 +115,10 @@ CREATE TABLE `tb_commodity` (
   `category_id` bigint(20) NULL COMMENT '分类id',
   `price` decimal NOT NULL COMMENT '会员价',
   `original_price` decimal NOT NULL COMMENT '参考价',
-  `detail` text NOT NULL COMMENT '详细信息',
+  `detail` text NULL COMMENT '详细信息',
   `create_time` datetime NOT NULL COMMENT '创建时间',
   `update_time` datetime NULL COMMENT '更新时间',
-  `user_id` bigint(20) NOT NULL COMMENT '创建人',
+  `respository_id` bigint(20) NOT NULL COMMENT '创建用户组',
   `is_delete` tinyint(3) NOT NULL default 0 COMMENT '是否删除（0-未删除 1-已删除）',
   PRIMARY KEY (`id`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8 COMMENT='商品表';

@@ -1,24 +1,8 @@
 package com.thirdblock.migo.commodity.web.action.dto;
 
-public class CommoditySearchForm {
+import com.thirdblock.migo.core.web.action.dto.BaseSearchForm;
 
-	private int pageSize = 10;
-	private int currentPage = 1;
+public class CommoditySearchForm extends BaseSearchForm {
 
-	public int getPageSize() {
-		return pageSize;
-	}
-
-	public void setPageSize(int pageSize) {
-		this.pageSize = pageSize;
-	}
-
-	public int getCurrentPage() {
-		return currentPage;
-	}
-
-	public void setCurrentPage(int currentPage) {
-		this.currentPage = currentPage;
-	}
 
 }

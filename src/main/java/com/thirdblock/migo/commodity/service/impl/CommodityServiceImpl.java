@@ -14,6 +14,7 @@ import com.thirdblock.migo.commodity.dao.CommodityDao;
 import com.thirdblock.migo.commodity.dao.CommodityImgDao;
 import com.thirdblock.migo.commodity.service.CommodityService;
 import com.thirdblock.migo.commodity.web.action.dto.CommodityCreateForm;
+import com.thirdblock.migo.commodity.web.action.dto.SearchCommoditiesVO;
 import com.thirdblock.migo.commodity.web.action.dto.CommoditySearchForm;
 import com.thirdblock.migo.core.bo.Commodity;
 import com.thirdblock.migo.core.bo.CommodityImg;
@@ -37,7 +38,7 @@ public class CommodityServiceImpl implements CommodityService {
 		validateCommodityCreateForm(form);
 		
 		Commodity commodity = new Commodity(form);
-		commodity.setUserId(visitor.getId());
+		commodity.setRespositoryId(visitor.getRespositoryId());
 		
 		if (ObjectUtils.notEqual(form.getId(), null) && form.getId() > 0L) {
 			commodity.setId(form.getId());
@@ -105,16 +106,16 @@ public class CommodityServiceImpl implements CommodityService {
 	}
 
 	@Override
-	public PageBean<Commodity> searchCommodities(CommoditySearchForm form,
+	public PageBean<SearchCommoditiesVO> searchCommodities(CommoditySearchForm form,
 			Visitor visitor) throws ServiceException {
 		
 		validateCommoditySearchForm(form);
 		
-		PageBean<Commodity> page = new PageBean<Commodity>();
+		PageBean<SearchCommoditiesVO> page = new PageBean<SearchCommoditiesVO>();
 		page.setPageSize(form.getPageSize());
 		page.setCurrentPage(form.getCurrentPage());
 		
-		List<Commodity> commodities = commodityDao.searchCommodities(form, page);
+		List<SearchCommoditiesVO> commodities = commodityDao.searchCommodities(form, visitor.getRespositoryId(), page);
 		
 		page.setData(commodities);
 		

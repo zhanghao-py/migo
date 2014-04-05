@@ -8,6 +8,7 @@ public class Visitor {
 
 	private Long id;
 	private String username;
+	private Long respositoryId;
 	private Collection<GrantedAuthority> authorities;
 
 	public Long getId() {
@@ -32,6 +33,14 @@ public class Visitor {
 
 	public void setAuthorities(Collection<GrantedAuthority> authorities) {
 		this.authorities = authorities;
+	}
+
+	public Long getRespositoryId() {
+		return respositoryId;
+	}
+
+	public void setRespositoryId(Long respositoryId) {
+		this.respositoryId = respositoryId;
 	}
 	
 }
