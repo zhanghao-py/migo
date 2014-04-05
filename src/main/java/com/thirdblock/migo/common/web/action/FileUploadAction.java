@@ -33,7 +33,7 @@ public class FileUploadAction extends BaseAction {
 
 	@RequestMapping(value = "upload", method = RequestMethod.GET )
 	public ModelAndView upload() {
-		ModelAndView modelAndView = new ModelAndView("commodity/upload");
+		ModelAndView modelAndView = new ModelAndView("common/upload");
 		return modelAndView;
 	}
 	
