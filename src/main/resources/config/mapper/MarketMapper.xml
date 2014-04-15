@@ -1,0 +1,51 @@
+<?xml version="1.0" encoding="UTF-8" ?>   
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.thirdblock.migo.account.dao.MarketDao">
+
+	<resultMap type="com.thirdblock.migo.core.bo.Market" id="marketResultMap">
+		<id column="id" property="id" jdbcType="BIGINT" />
+		<result column="name" property="name" jdbcType="VARCHAR" />
+		<result column="telephone" property="telephone" jdbcType="VARCHAR" />
+		<result column="address" property="address" jdbcType="VARCHAR" />
+		<result column="description" property="description" jdbcType="VARCHAR" />
+	</resultMap>
+
+	<insert id="save" parameterType="com.thirdblock.migo.core.bo.Market" useGeneratedKeys="true" keyProperty="id">
+		insert into tb_market (name, address, telephone, description) 
+		values (
+			#{name, jdbcType=VARCHAR},
+			#{address, jdbcType=VARCHAR},
+			#{telephone, jdbcType=VARCHAR},
+			#{description, jdbcType=VARCHAR}
+		) 
+	</insert>
+	
+	<update id="update" parameterType="com.thirdblock.migo.core.bo.Market" flushCache="true">
+		update tb_market
+		<set>
+			<if test="name != null">
+				name = #{name, jdbcType=VARCHAR},
+			</if>
+			<if test="telephone != null">
+				telephone = #{telephone, jdbcType=VARCHAR},
+			</if>
+			<if test="address != null">
+				address = #{address, jdbcType=VARCHAR},
+			</if>
+			<if test="description != null">
+				description = #{description, jdbcType=VARCHAR}
+			</if>
+		</set>
+		<where> 
+			id = #{id, jdbcType=BIGINT}
+		</where>
+	</update>
+	
+	
+	<select id="searchMarkets" parameterType="com.thirdblock.migo.account.web.action.dto.MarketSearchForm" resultMap="marketResultMap">
+		select id, name, address, telephone, description from tb_market
+	</select>
+	
+
+</mapper>
+

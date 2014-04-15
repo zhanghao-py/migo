@@ -5,7 +5,7 @@ public class UserCreateForm {
 	private Long id;
 	private String username;
 	private String password;
-	private Long repositoryId;
+	private Long shopId;
 
 	public Long getId() {
 		return id;
@@ -22,13 +22,13 @@ public class UserCreateForm {
 	public void setUsername(String username) {
 		this.username = username;
 	}
-
-	public Long getRepositoryId() {
-		return repositoryId;
+	
+	public Long getShopId() {
+		return shopId;
 	}
 
-	public void setRepositoryId(Long repositoryId) {
-		this.repositoryId = repositoryId;
+	public void setShopId(Long shopId) {
+		this.shopId = shopId;
 	}
 
 	public String getPassword() {

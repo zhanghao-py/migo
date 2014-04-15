@@ -54,7 +54,7 @@
         <div id="pad-wrapper" class="new-user">
             <div class="row header">
                 <div class="col-md-12">
-                    <h3>创建新用户组</h3>
+                    <h3>创建新商场</h3>
                 </div>                
             </div>
 
@@ -62,17 +62,25 @@
                 <!-- left column -->
                 <div class="col-md-9 with-sidebar">
                     <div class="container">
-                        <form class="new_user_form" id="new-repository-form" action="account/repository" method="POST">
+                        <form class="new_user_form" id="new-market-form" action="account/market" method="POST">
                             <div class="col-md-12 field-box">
-                                <label>名称:</label>
+                                <label>商场名称:</label>
                                 <input class="form-control" type="text" name="name" />
+                            </div>
+                            <div class="col-md-12 field-box">
+                                <label>地址:</label>
+                                <input class="col-md-9 form-control" type="text" name="address" />
+                            </div>
+                            <div class="col-md-12 field-box">
+                                <label>电话:</label>
+                                <input class="col-md-9 form-control" type="text" name="telephone" />
                             </div>
                             <div class="col-md-12 field-box">
                                 <label>描述:</label>
                                 <input class="col-md-9 form-control" type="text" name="description" />
                             </div>
                             <div class="col-md-11 field-box actions">
-                                <input type="button" class="btn-glow primary" value="创建" id="new-repository-btn">
+                                <input type="button" class="btn-glow primary" value="创建" id="new-market-btn">
                                 <span>OR</span>
                                 <input type="reset" value="取消" class="reset">
                             </div>
@@ -126,20 +134,22 @@
 
 
 
-            $("#new-repository-btn").click(function() {
+            $("#new-market-btn").click(function() {
 
 
                 var name = $("input[name=name]").val();
+                var address = $("input[name=address]").val();
+                var telephone = $("input[name=telephone]").val();
                 var description = $("input[name=description]").val();
 
-                var url = $("#new-repository-form").attr('action');
-                var method = $("#new-repository-form").attr('method');
+                var url = $("#new-market-form").attr('action');
+                var method = $("#new-market-form").attr('method');
 
                 $.ajax({
                     type: method,
                     url: url,
                     dataType: 'json',
-                    data: {name: name, description: description},
+                    data: {name: name, address: address, telephone: telephone, description: description},
                     success: function(data, textStatus, jqXHR){
                         console.log(data.statusInfo);
                         alert(data.statusInfo);

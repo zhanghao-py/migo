@@ -38,7 +38,7 @@ public class CommodityServiceImpl implements CommodityService {
 		validateCommodityCreateForm(form);
 		
 		Commodity commodity = new Commodity(form);
-		commodity.setRespositoryId(visitor.getRespositoryId());
+		commodity.setShopId(visitor.getShopId());
 		
 		if (ObjectUtils.notEqual(form.getId(), null) && form.getId() > 0L) {
 			commodity.setId(form.getId());
@@ -115,7 +115,7 @@ public class CommodityServiceImpl implements CommodityService {
 		page.setPageSize(form.getPageSize());
 		page.setCurrentPage(form.getCurrentPage());
 		
-		List<SearchCommoditiesVO> commodities = commodityDao.searchCommodities(form, visitor.getRespositoryId(), page);
+		List<SearchCommoditiesVO> commodities = commodityDao.searchCommodities(form, visitor.getShopId(), page);
 		
 		page.setData(commodities);
 		

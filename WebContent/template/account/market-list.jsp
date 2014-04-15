@@ -63,13 +63,13 @@
             <div class="table-products">
                 <div class="row head ">
                     <div class="col-md-12">
-                        <h4>用户组列表</h4>
+                        <h4>商场列表</h4>
                     </div>
                 </div>
 
                 <div class="row filter-block">
                     <div class="col-md-8 col-md-offset-5">
-                        <form action="account/repository/search" method="POST" id="repository-search-form">
+                        <form action="account/market/search" method="POST" id="market-search-form">
                         <div class="ui-select">
                             <select>
                               <option>Filter users</option>
@@ -87,12 +87,18 @@
                     <table class="table table-hover">
                         <thead>
                             <tr>
-                                <th class="col-md-3">
+                                <th class="col-md-2">
                                     <input type="checkbox">
                                     名称
                                 </th>
-                                <th class="col-md-3">
+                                <th class="col-md-2">
                                     <span class="line"></span>描述
+                                </th>
+                                <th class="col-md-2">
+                                    <span class="line"></span>地址
+                                </th>
+                                <th class="col-md-2">
+                                    <span class="line"></span>电话
                                 </th>
                                 <th class="col-md-3">
                                     <span class="line"></span>状态
@@ -106,8 +112,14 @@
                                     <input type="checkbox" id="id">
                                     <span id="name"></span>
                                 </td>
-                                <td class="description">
+                                <td>
                                     <span id="description"></span>
+                                </td>
+                                <td>
+                                    <span id="address"></span>
+                                </td>
+                                <td>
+                                    <span id="telephone"></span>
                                 </td>
                                 <td>
                                     <span class="label label-success">Active</span>
@@ -138,8 +150,8 @@
 
         function searchRepositories(currentPage, pageSize) {
 
-            var url = $("#repository-search-form").attr('action');
-            var method = $("#repository-search-form").attr('method');
+            var url = $("#market-search-form").attr('action');
+            var method = $("#market-search-form").attr('method');
 
             $.ajax({
                 type: method,
@@ -167,6 +179,8 @@
                         row.find("#id").val(e.id);
                         row.find("#name").text(e.name);
                         row.find("#description").text(e.description);
+                        row.find("#address").text(e.address);
+                        row.find("#telephone").text(e.telephone);
 
 
                         row.removeAttr("style");

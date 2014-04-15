@@ -25,8 +25,10 @@
                 <ul class="submenu">
                     <li><a href="account/user/list">用户列表</a></li>
                     <li><a href="account/user/create">添加用户</a></li>
-                    <li><a href="account/repository/list">用户组列表</a></li>
-                    <li><a href="account/repository/create">添加用户组</a></li>
+                    <li><a href="account/shop/list">商铺列表</a></li>
+                    <li><a href="account/shop/create">添加商铺</a></li>
+                    <li><a href="account/market/list">商场列表</a></li>
+                    <li><a href="account/market/create">添加商场</a></li>
                 </ul>
             </li>
             <li>

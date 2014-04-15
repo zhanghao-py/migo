@@ -9,9 +9,9 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.servlet.ModelAndView;
 
-import com.thirdblock.migo.account.service.RepositoryService;
-import com.thirdblock.migo.account.web.action.dto.RepositorySearchForm;
-import com.thirdblock.migo.core.bo.Repository;
+import com.thirdblock.migo.account.service.ShopService;
+import com.thirdblock.migo.account.web.action.dto.ShopSearchForm;
+import com.thirdblock.migo.core.bo.Shop;
 import com.thirdblock.migo.core.excep.ServiceException;
 import com.thirdblock.migo.core.mybatis.pagination.PageBean;
 import com.thirdblock.migo.core.util.UsernameKeyGenerator;
@@ -22,7 +22,7 @@ import com.thirdblock.migo.core.web.action.BaseAction;
 public class UserPortalAction extends BaseAction {
 	
 	@Autowired
-	private RepositoryService repositoryService;
+	private ShopService shopService;
 	
 	@RequestMapping(value = "list", method = RequestMethod.GET) 
     public ModelAndView list() {
@@ -34,12 +34,12 @@ public class UserPortalAction extends BaseAction {
 		
 		Map<String, Object> model = new HashMap<String, Object>();
 		
-		RepositorySearchForm form = new RepositorySearchForm();
+		ShopSearchForm form = new ShopSearchForm();
 		form.setPage(Boolean.FALSE);
 		
 		try {
-			PageBean<Repository> page = repositoryService.searchRepositories(form);
-			model.put("repositories", page.getData());
+			PageBean<Shop> page = shopService.searchShops(form);
+			model.put("shops", page.getData());
 			model.put("username", UsernameKeyGenerator.getKey());
 		} catch (ServiceException e) {
 			logger.warn("", e);

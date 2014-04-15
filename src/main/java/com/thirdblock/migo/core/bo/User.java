@@ -12,7 +12,7 @@ public class User implements Serializable {
 	private String username;
 	private String password;
 	private Boolean enabled;
-	private Long repositoryId;
+	private Long shopId;
 	
 	public User() {}
 	
@@ -20,7 +20,7 @@ public class User implements Serializable {
 		this.username = form.getUsername();
 		this.password = form.getPassword();
 		this.enabled = Boolean.TRUE;
-		this.repositoryId = form.getRepositoryId();
+		this.shopId = form.getShopId();
 	}
 
 	public Long getId() {
@@ -55,12 +55,12 @@ public class User implements Serializable {
 		this.enabled = enabled;
 	}
 
-	public Long getRepositoryId() {
-		return repositoryId;
+	public Long getShopId() {
+		return shopId;
 	}
 
-	public void setRepositoryId(Long repositoryId) {
-		this.repositoryId = repositoryId;
+	public void setShopId(Long shopId) {
+		this.shopId = shopId;
 	}
-	
+
 }

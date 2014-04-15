@@ -60,7 +60,7 @@ CREATE TABLE `tb_user` (
   `username` varchar(50) NOT NULL,
   `password` varchar(50) NOT NULL,
   `enabled` tinyint(3) NOT NULL,
-  `repository_id` bigint(20) NOT NULL COMMENT '用户组id',
+  `shop_id` bigint(20) NOT NULL COMMENT '店铺id',
   PRIMARY KEY (`id`)
 ) ENGINE=InnoDB AUTO_INCREMENT=7 DEFAULT CHARSET=utf8;
 
@@ -118,7 +118,7 @@ CREATE TABLE `tb_commodity` (
   `detail` text NULL COMMENT '详细信息',
   `create_time` datetime NOT NULL COMMENT '创建时间',
   `update_time` datetime NULL COMMENT '更新时间',
-  `respository_id` bigint(20) NOT NULL COMMENT '创建用户组',
+  `shop_id` bigint(20) NOT NULL COMMENT '创建店铺',
   `is_delete` tinyint(3) NOT NULL default 0 COMMENT '是否删除（0-未删除 1-已删除）',
   PRIMARY KEY (`id`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8 COMMENT='商品表';
@@ -131,12 +131,25 @@ CREATE TABLE `tb_commodity_img` (
   PRIMARY KEY (`id`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8 COMMENT='商品图片关联表';
 
-DROP TABLE IF EXISTS `tb_repository`;
-CREATE TABLE `tb_repository` (
+DROP TABLE IF EXISTS `tb_shop`;
+CREATE TABLE `tb_shop` (
   `id` bigint(20) NOT NULL AUTO_INCREMENT COMMENT '主键id',
-  `name` varchar(255) NOT NULL COMMENT '名称',
-  `description` varchar(255) NULL COMMENT '用户组信息摘要',
+  `name` varchar(255) NOT NULL COMMENT '品牌',
+  `address` varchar(255) NULL COMMENT '地址',
+  `telephone` varchar(255) NULL COMMENT '电话',
+  `description` varchar(255) NULL COMMENT '店铺信息摘要',
+  `market_id` bigint(20) NOT NULL COMMENT '商场id',
   PRIMARY KEY (`id`)
-) ENGINE=InnoDB DEFAULT CHARSET=utf8 COMMENT='用户组表';
+) ENGINE=InnoDB DEFAULT CHARSET=utf8 COMMENT='店铺表';
+
+DROP TABLE IF EXISTS `tb_market`;
+CREATE TABLE `tb_market` (
+  `id` bigint(20) NOT NULL AUTO_INCREMENT COMMENT '主键id',
+  `name` varchar(255) NOT NULL COMMENT '商场名称',
+  `address` varchar(255) NULL COMMENT '地址',
+  `telephone` varchar(255) NULL COMMENT '电话',
+  `description` varchar(255) NULL COMMENT '商场信息摘要',
+  PRIMARY KEY (`id`)
+) ENGINE=InnoDB DEFAULT CHARSET=utf8 COMMENT='商场表';
 
 SET FOREIGN_KEY_CHECKS = 1;

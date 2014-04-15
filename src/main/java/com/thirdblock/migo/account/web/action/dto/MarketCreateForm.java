@@ -1,23 +1,12 @@
-package com.thirdblock.migo.core.bo;
+package com.thirdblock.migo.account.web.action.dto;
 
-import java.io.Serializable;
-
-import com.thirdblock.migo.account.web.action.dto.RepositoryCreateForm;
-
-public class Repository implements Serializable {
-
-	private static final long serialVersionUID = -1573175154674097147L;
+public class MarketCreateForm {
 
 	private Long id;
 	private String name;
+	private String telephone;
+	private String address;
 	private String description;
-	
-	public Repository() {}
-
-	public Repository(RepositoryCreateForm form) {
-		this.name = form.getName();
-		this.description = form.getDescription();
-	}
 
 	public Long getId() {
 		return id;
@@ -41,6 +30,22 @@ public class Repository implements Serializable {
 
 	public void setDescription(String description) {
 		this.description = description;
+	}
+
+	public String getTelephone() {
+		return telephone;
+	}
+
+	public void setTelephone(String telephone) {
+		this.telephone = telephone;
+	}
+
+	public String getAddress() {
+		return address;
+	}
+
+	public void setAddress(String address) {
+		this.address = address;
 	}
 
 }

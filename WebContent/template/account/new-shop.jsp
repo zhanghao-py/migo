@@ -54,7 +54,7 @@
         <div id="pad-wrapper" class="new-user">
             <div class="row header">
                 <div class="col-md-12">
-                    <h3>创建新用户</h3>
+                    <h3>创建新商铺</h3>
                 </div>                
             </div>
 
@@ -62,27 +62,35 @@
                 <!-- left column -->
                 <div class="col-md-9 with-sidebar">
                     <div class="container">
-                        <form id="new-user-form" class="new_user_form" action="account/user" method="POST">
+                        <form class="new_user_form" id="new-shop-form" action="account/shop" method="POST">
                             <div class="col-md-12 field-box">
-                                <label>用户名:</label>
-                                <input name="username" class="form-control" type="text" value="${username}" disabled/>
+                                <label>品牌:</label>
+                                <input class="form-control" type="text" name="name" />
                             </div>
                             <div class="col-md-12 field-box">
-                                <label>密码:</label>
-                                <input name="password" class="col-md-9 form-control" type="text" value="000000" disabled/>
+                                <label>地址:</label>
+                                <input class="col-md-9 form-control" type="text" name="address" />
                             </div>
                             <div class="col-md-12 field-box">
-                                <label>店铺:</label>
+                                <label>电话:</label>
+                                <input class="col-md-9 form-control" type="text" name="telephone" />
+                            </div>
+                            <div class="col-md-12 field-box">
+                                <label>描述:</label>
+                                <input class="col-md-9 form-control" type="text" name="description" />
+                            </div>
+                            <div class="col-md-12 field-box">
+                                <label>商场:</label>
                                 <div class="ui-select span5">
-                                    <select name="shopId">
-                                        <c:forEach items="${shops}" var="shop">
-                                            <option value="${shop.id}">${shop.name}</option>
-                                        </c:forEach> 
+                                    <select name="marketId">
+                                        <c:forEach items="${markets}" var="market">
+                                            <option value="${market.id}">${market.name}</option>
+                                        </c:forEach>
                                     </select>
                                 </div>
                             </div>
                             <div class="col-md-11 field-box actions">
-                                <input type="button" class="btn-glow primary" id="new-user-btn" value="创建">
+                                <input type="button" class="btn-glow primary" value="创建" id="new-shop-btn">
                                 <span>OR</span>
                                 <input type="reset" value="取消" class="reset">
                             </div>
@@ -92,6 +100,10 @@
 
                 <!-- side right column -->
                 <div class="col-md-3 form-sidebar pull-right">
+                    <div class="btn-group toggle-inputs hidden-tablet">
+                        <button class="glow left active" data-input="normal">NORMAL INPUTS</button>
+                        <button class="glow right" data-input="inline">INLINE INPUTS</button>
+                    </div>
                     <div class="alert alert-info hidden-tablet">
                         <i class="icon-lightbulb pull-left"></i>
                         Click above to see difference between inline and normal inputs on a form
@@ -114,20 +126,40 @@
     <script type="text/javascript">
         $(function () {
 
-            $("#new-user-btn").click(function() {
+            // toggle form between inline and normal inputs
+            var $buttons = $(".toggle-inputs button");
+            var $form = $("form.new_user_form");
 
-                var username = $("input[name=username]").val();
-                var password = $("input[name=password]").val();
-                var shopId = $("select[name=shopId] option:selected").val();
+            $buttons.click(function () {
+                var mode = $(this).data("input");
+                $buttons.removeClass("active");
+                $(this).addClass("active");
 
-                var url = $("#new-user-form").attr('action');
-                var method = $("#new-user-form").attr('method');
+                if (mode === "inline") {
+                    $form.addClass("inline-input");
+                } else {
+                    $form.removeClass("inline-input");
+                }
+            });
+
+
+
+            $("#new-shop-btn").click(function() {
+
+
+                var name = $("input[name=name]").val();
+                var address = $("input[name=address]").val();
+                var telephone = $("input[name=telephone]").val();
+                var description = $("input[name=description]").val();
+
+                var url = $("#new-shop-form").attr('action');
+                var method = $("#new-shop-form").attr('method');
 
                 $.ajax({
                     type: method,
                     url: url,
                     dataType: 'json',
-                    data: {username: username, password: password, shopId: shopId},
+                    data: {name: name, address: address, telephone: telephone, description: description},
                     success: function(data, textStatus, jqXHR){
                         console.log(data.statusInfo);
                         alert(data.statusInfo);
@@ -135,11 +167,7 @@
                 });
 
 
-                //console.log(username + "," + password + "," + repositoryId);
-
             });
-
-            
         });
     </script>
 </body>

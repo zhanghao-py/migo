@@ -8,7 +8,7 @@ public class Visitor {
 
 	private Long id;
 	private String username;
-	private Long respositoryId;
+	private Long shopId;
 	private Collection<GrantedAuthority> authorities;
 
 	public Long getId() {
@@ -35,12 +35,13 @@ public class Visitor {
 		this.authorities = authorities;
 	}
 
-	public Long getRespositoryId() {
-		return respositoryId;
+	public Long getShopId() {
+		return shopId;
 	}
 
-	public void setRespositoryId(Long respositoryId) {
-		this.respositoryId = respositoryId;
+	public void setShopId(Long shopId) {
+		this.shopId = shopId;
 	}
+
 	
 }

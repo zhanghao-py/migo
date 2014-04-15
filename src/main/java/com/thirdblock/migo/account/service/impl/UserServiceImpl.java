@@ -62,8 +62,8 @@ public class UserServiceImpl implements UserService {
 			throw new ServiceException("密码不能为空！");
 		}
 		
-		if (ObjectUtils.equals(form.getRepositoryId(), null) || form.getRepositoryId() < 1L) {
-			throw new ServiceException("用户组不能为空！");
+		if (ObjectUtils.equals(form.getShopId(), null) || form.getShopId() < 1L) {
+			throw new ServiceException("商铺不能为空！");
 		}
 		return;
 		

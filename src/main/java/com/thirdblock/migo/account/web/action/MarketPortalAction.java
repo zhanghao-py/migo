@@ -8,17 +8,17 @@ import org.springframework.web.servlet.ModelAndView;
 import com.thirdblock.migo.core.web.action.BaseAction;
 
 @Controller
-@RequestMapping("account/repository")
-public class RepositoryPortalAction extends BaseAction {
+@RequestMapping("account/market")
+public class MarketPortalAction extends BaseAction {
 	
 	@RequestMapping(value = "create", method = RequestMethod.GET) 
     public ModelAndView create() {
-        return new ModelAndView("account/new-repository");
+        return new ModelAndView("account/new-market");
     }
 	
 	@RequestMapping(value = "list", method = RequestMethod.GET) 
     public ModelAndView list() {
-        return new ModelAndView("account/repository-list");
+        return new ModelAndView("account/market-list");
     }
 
 }

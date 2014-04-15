@@ -120,10 +120,10 @@
                                     <span class="line"></span>状态
                                 </th>
                                 <th class="col-md-2 sortable">
-                                    <span class="line"></span>用户组
+                                    <span class="line"></span>商铺
                                 </th>
                                 <th class="col-md-3 sortable">
-                                    <span class="line"></span>用户组描述
+                                    <span class="line"></span>商铺描述
                                 </th>
                             </tr>
                         </thead>
@@ -140,10 +140,10 @@
                                 <span id="status-passive" class="label label-info" style="display:none;">Passive</span>
                             </td>
                             <td>
-                                <span id="repositoryName"></span>
+                                <span id="shopName"></span>
                             </td>
                             <td>
-                                <span id="repositoryDescription"></span>
+                                <span id="shopDescription"></span>
                             </td>
                         </tr>
 
@@ -200,8 +200,8 @@
                         } else {
                             row.find("#status-passive").removeAttr("style");
                         }
-                        row.find("#repositoryName").text(e.repositoryName);
-                        row.find("#repositoryDescription").text(e.repositoryDescription);
+                        row.find("#shopName").text(e.shopName);
+                        row.find("#shopDescription").text(e.shopDescription);
 
 
                         row.removeAttr("style");

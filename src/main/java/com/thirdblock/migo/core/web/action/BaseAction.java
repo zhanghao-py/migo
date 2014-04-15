@@ -52,7 +52,7 @@ public class BaseAction {
 			visitor = new Visitor();
 			visitor.setId(user.getId());
 			visitor.setUsername(user.getUsername());
-			visitor.setRespositoryId(user.getRepositoryId());
+			visitor.setShopId(user.getShopId());
 			visitor.setAuthorities(authorities);
 		}
 		

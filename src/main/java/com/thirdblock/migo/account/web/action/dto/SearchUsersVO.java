@@ -5,8 +5,8 @@ public class SearchUsersVO {
 	private Long id;
 	private String username;
 	private Boolean enabled;
-	private String repositoryName;
-	private String repositoryDescription;
+	private String shopName;
+	private String shopDescription;
 
 	public Long getId() {
 		return id;
@@ -32,20 +32,20 @@ public class SearchUsersVO {
 		this.enabled = enabled;
 	}
 
-	public String getRepositoryName() {
-		return repositoryName;
+	public String getShopName() {
+		return shopName;
 	}
 
-	public void setRepositoryName(String repositoryName) {
-		this.repositoryName = repositoryName;
+	public void setShopName(String shopName) {
+		this.shopName = shopName;
 	}
 
-	public String getRepositoryDescription() {
-		return repositoryDescription;
+	public String getShopDescription() {
+		return shopDescription;
 	}
 
-	public void setRepositoryDescription(String repositoryDescription) {
-		this.repositoryDescription = repositoryDescription;
+	public void setShopDescription(String shopDescription) {
+		this.shopDescription = shopDescription;
 	}
 
 }

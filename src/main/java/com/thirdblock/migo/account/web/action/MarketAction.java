@@ -7,28 +7,28 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.ResponseBody;
 
-import com.thirdblock.migo.account.service.RepositoryService;
-import com.thirdblock.migo.account.web.action.dto.RepositoryCreateForm;
-import com.thirdblock.migo.account.web.action.dto.RepositorySearchForm;
-import com.thirdblock.migo.core.bo.Repository;
+import com.thirdblock.migo.account.service.MarketService;
+import com.thirdblock.migo.account.web.action.dto.MarketCreateForm;
+import com.thirdblock.migo.account.web.action.dto.MarketSearchForm;
+import com.thirdblock.migo.core.bo.Market;
 import com.thirdblock.migo.core.excep.ServiceException;
 import com.thirdblock.migo.core.mybatis.pagination.PageBean;
 import com.thirdblock.migo.core.web.action.BaseAction;
 import com.thirdblock.migo.core.web.action.dto.StatusInfo;
 
 @Controller
-@RequestMapping("account/repository")
-public class RepositoryAction extends BaseAction {
+@RequestMapping("account/market")
+public class MarketAction extends BaseAction {
 	
 	@Autowired
-	private RepositoryService repositoryService;
+	private MarketService marketService;
 	
 	@RequestMapping(value = "", method = RequestMethod.POST) 
 	@ResponseBody
-    public StatusInfo create(@ModelAttribute RepositoryCreateForm form) {
+    public StatusInfo create(@ModelAttribute MarketCreateForm form) {
 		
 		try {
-			repositoryService.saveOrUpdateRepository(form);
+			marketService.saveOrUpdateMarket(form);
 		} catch (ServiceException e) {
 			logger.warn("", e);
 			status.setStatus(StatusInfo.FAILED);
@@ -43,12 +43,12 @@ public class RepositoryAction extends BaseAction {
 	
 	@RequestMapping(value = "search", method = RequestMethod.POST) 
 	@ResponseBody
-    public StatusInfo search(@ModelAttribute RepositorySearchForm form) {
+    public StatusInfo search(@ModelAttribute MarketSearchForm form) {
 		
-		PageBean<Repository> page = null;
+		PageBean<Market> page = null;
 		
 		try {
-			page = repositoryService.searchRepositories(form);
+			page = marketService.searchMarkets(form);
 		} catch (ServiceException e) {
 			logger.warn("", e);
 			status.setStatus(StatusInfo.FAILED);

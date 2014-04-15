@@ -7,37 +7,37 @@
 		<result column="username" property="username" jdbcType="VARCHAR" />
 		<result column="password" property="password" jdbcType="VARCHAR" />
 		<result column="enabled" property="enabled" jdbcType="BOOLEAN" />
-		<result column="repository_id" property="repositoryId" jdbcType="BIGINT" />
+		<result column="shop_id" property="shopId" jdbcType="BIGINT" />
 	</resultMap>
 	
 	<resultMap type="com.thirdblock.migo.account.web.action.dto.SearchUsersVO" id="searchUsersResultMap">
 		<id column="id" property="id" jdbcType="BIGINT" />
 		<result column="username" property="username" jdbcType="VARCHAR" />
 		<result column="enabled" property="enabled" jdbcType="BOOLEAN" />
-		<result column="name" property="repositoryName" jdbcType="VARCHAR" />
-		<result column="description" property="repositoryDescription" jdbcType="VARCHAR" />
+		<result column="name" property="shopName" jdbcType="VARCHAR" />
+		<result column="description" property="shopDescription" jdbcType="VARCHAR" />
 	</resultMap>
 
 	<select id="findUserByUsername" parameterType="java.lang.String" resultMap="userResultMap">
-		select id, password, username, enabled, repository_id from tb_user
+		select id, password, username, enabled, shop_id from tb_user
 		<where>
 			username = #{username, jdbcType=VARCHAR}
 		</where>
 	</select>
 	
 	<insert id="save" parameterType="com.thirdblock.migo.core.bo.User" useGeneratedKeys="true" keyProperty="id">
-		insert into tb_user (username, password, enabled, repository_id) 
+		insert into tb_user (username, password, enabled, shop_id) 
 		values (
 			#{username, jdbcType=VARCHAR},
 			md5(#{password, jdbcType=VARCHAR}),
 			#{enabled, jdbcType=BOOLEAN},
-			#{repositoryId, jdbcType=BIGINT}
+			#{shopId, jdbcType=BIGINT}
 		) 
 	</insert>
 	
 	
 	<select id="searchUsers" parameterType="com.thirdblock.migo.account.web.action.dto.UserSearchForm" resultMap="searchUsersResultMap">
-		select u.id, u.username, u.enabled, r.name, r.description from tb_user u left join tb_repository r on u.repository_id = r.id
+		select u.id, u.username, u.enabled, s.name, s.description from tb_user u left join tb_shop s on u.shop_id = s.id
 	</select>
 
 
